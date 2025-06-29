@@ -202,4 +202,42 @@ git commit -m "Setup: Complete project planning and Git configuration
 Ready to begin Week 1: Project Setup & Basic Structure"
 
 # Check commit was successful
+git log --oneline -1
+
+# Create Next.js project in the current directory
+npx create-next-app@latest . --typescript --tailwind --app --src-dir --import-alias "@/*" --yes
+
+# The command will ask a few questions, here are the recommended answers:
+# ✔ Would you like to use TypeScript? Yes
+# ✔ Would you like to use ESLint? Yes
+# ✔ Would you like to use Tailwind CSS? Yes
+# ✔ Would you like to use `src/` directory? Yes
+# ✔ Would you like to use App Router? Yes
+# ✔ Would you like to customize the default import alias (@/*)? Yes 
+
+# Install additional dependencies we'll need
+npm install @prisma/client prisma next-auth
+npm install -D @types/node @types/react @types/react-dom
+npm install lucide-react clsx tailwind-merge
+
+# Check current Git status
+git status
+
+# Add all files to staging
+git add .
+
+# Commit the current state
+git commit -m "Setup: Complete project planning and Git configuration
+
+- Add comprehensive project plan for Cooking with Class website
+- Set up Next.js tech stack with TypeScript and Tailwind CSS
+- Create .gitignore for Next.js development
+- Add README.md with project documentation
+- Configure Git repository for version control
+
+Ready to begin Week 1: Project Setup & Basic Structure"
+
+# Check commit was successful
 git log --oneline -1 
+
+
