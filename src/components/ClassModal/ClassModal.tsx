@@ -12,14 +12,14 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
   if (!isOpen || !cookingClass) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-900">{cookingClass.title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 transition-smooth p-1 rounded-full hover:bg-gray-100"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -30,7 +30,7 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
         {/* Content */}
         <div className="p-6">
           {/* Image placeholder */}
-          <div className="relative h-64 bg-gray-300 rounded-lg mb-6">
+          <div className="relative h-64 bg-gray-300 rounded-lg mb-6 overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-gray-500">Class Image</span>
             </div>
@@ -97,7 +97,7 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
             <div className="text-3xl font-bold text-orange-600">
               ${cookingClass.price}
             </div>
-            <button className="bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors">
+            <button className="bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-smooth transform hover:scale-105">
               Book This Class
             </button>
           </div>

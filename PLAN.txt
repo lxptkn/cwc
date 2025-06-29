@@ -57,6 +57,34 @@ A website for people to sign up for cooking classes in different cities. The fro
 4. Add animations and transitions
 5. Implement proper SEO meta tags
 
+### Week 4: Enhanced Features
+1. **Google Maps API Integration**
+   - Embed interactive map in each class modal
+   - Show exact location using the address data
+   - Allow users to get directions
+   - Display nearby landmarks or attractions
+
+2. **Price Filter Slider**
+   - Dual-range slider for minimum and maximum price
+   - Real-time filtering as user adjusts slider
+   - Visual price range display
+   - Reset filter option
+
+3. **Pagination & Row Limits**
+   - Limit initial display to 12-16 classes per page
+   - Add "Load More" button or pagination controls
+   - Maintain search/filter state across pages
+   - Smooth loading transitions
+
+4. **Footer with Site Pages**
+   - About Us page
+   - Contact page
+   - Terms of Service
+   - Privacy Policy
+   - FAQ page
+   - Social media links
+   - Newsletter signup
+
 ## Detailed Feature Breakdown
 
 ### Header Component
