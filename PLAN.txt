@@ -1,0 +1,166 @@
+# Cooking with Class - Project Plan (Updated for Next.js)
+
+## Project Overview
+A website for people to sign up for cooking classes in different cities. The front page displays a list of cooking classes with real-time search filtering and modal details.
+
+## Core Features
+- **Header**: Logo ("Cooking with Class") on top left, search bar on top right
+- **Class Listing**: Grid of class cards showing image, title, location, and price
+- **Search**: Real-time filtering of classes
+- **Modal**: Detailed class information when clicking on a class
+- **Responsive Design**: Works on desktop, tablet, and mobile
+
+## Updated Tech Stack (Next.js)
+
+### Frontend
+- **Next.js 14** with App Router - Full-stack React framework
+- **React 18** - Interactive UI components
+- **TypeScript** - Better code quality and developer experience
+- **Tailwind CSS** - Rapid, responsive styling
+- **Next.js Image component** - Optimized image loading and display
+
+### Backend (Built into Next.js)
+- **Next.js API Routes** - Built-in backend API endpoints
+- **Prisma** - Database ORM for type-safe database operations
+- **PostgreSQL** - Reliable relational database
+- **NextAuth.js** - Authentication solution (future phase)
+
+### Why Next.js?
+- **SEO Benefits** - Server-side rendering helps with search engine optimization
+- **Performance** - Faster initial page loads and better user experience
+- **Image Optimization** - Automatic optimization for cooking class photos
+- **All-in-One Solution** - Frontend + backend in one project
+- **Easy Deployment** - Optimized for Vercel, Netlify, and other platforms
+- **Scalability** - Easy to add more pages and features
+- **Built-in API** - No separate server needed
+
+## Phase 1: MVP (Minimum Viable Product)
+
+### Week 1: Project Setup & Basic Structure
+1. Initialize Next.js 14 project with TypeScript
+2. Set up Tailwind CSS
+3. Create basic layout with header (logo + search bar)
+4. Create mock data for cooking classes
+5. Set up Next.js Image component for optimized images
+
+### Week 2: Core Features
+1. Build the class listing component with Next.js Image
+2. Implement search/filter functionality
+3. Create modal component for class details
+4. Add responsive design
+5. Set up basic API routes for class data
+
+### Week 3: Polish & Testing
+1. Add loading states and error handling
+2. Optimize performance with Next.js features
+3. Test on different screen sizes
+4. Add animations and transitions
+5. Implement proper SEO meta tags
+
+## Detailed Feature Breakdown
+
+### Header Component
+- Logo: "Cooking with Class" text (top left)
+- Search bar (top right) with real-time filtering
+- Responsive design for mobile
+- Next.js Link component for navigation
+
+### Class Listing
+- Grid layout of class cards
+- Each card shows: optimized image, title, location, price
+- Hover effects and click interactions
+- Responsive grid (3 columns on desktop, 2 on tablet, 1 on mobile)
+- Next.js Image component for performance
+
+### Class Modal
+- Detailed description
+- Instructor information
+- Class schedule
+- Booking button (placeholder for now)
+- Close functionality
+- Optimized images
+
+### Search Functionality
+- Real-time filtering by title, location, or cuisine type
+- Clear search option
+- No results state
+- Client-side filtering for immediate response
+
+## Updated File Structure (Next.js App Router)
+app/
+├── page.tsx (homepage)
+├── layout.tsx (root layout)
+├── globals.css
+├── components/
+│   ├── Header/
+│   │   ├── Header.tsx
+│   │   └── SearchBar.tsx
+│   ├── ClassCard/
+│   │   └── ClassCard.tsx
+│   ├── ClassModal/
+│   │   └── ClassModal.tsx
+│   └── ui/
+│       └── Button.tsx
+├── api/
+│   └── classes/
+│       └── route.ts
+├── data/
+│   └── mockClasses.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   └── searchUtils.ts
+├── lib/
+│   └── prisma.ts (future)
+└── public/
+    └── images/
+        └── classes/
+```
+
+## Database Schema (Future Phase)
+```sql
+-- Classes table
+CREATE TABLE classes (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  location VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  image_url VARCHAR(500),
+  instructor_name VARCHAR(255),
+  class_date TIMESTAMP,
+  max_students INTEGER,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## Future Enhancements (Phase 2+)
+- **NextAuth.js** for user authentication and booking system
+- **Prisma** for database operations
+- **Stripe** for payment processing
+- **Email notifications** with Resend or similar
+- **Instructor profiles** and management
+- **Reviews and ratings** system
+- **Admin dashboard** for managing classes
+- **Search with Algolia** for advanced filtering
+- **Image upload** for class photos
+
+## Getting Started Commands
+```bash
+# Create Next.js project
+npx create-next-app@latest cooking-with-class --typescript --tailwind --app --src-dir
+
+# Install additional dependencies
+npm install @prisma/client prisma next-auth
+
+# Initialize Prisma (future)
+npx prisma init
+
+# Run development server
+npm run dev
+```
+
+## Deployment Strategy
+- **Vercel** (recommended for Next.js)
+- **Netlify** (alternative)
+- **Database**: Supabase, PlanetScale, or Railway

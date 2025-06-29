@@ -1,0 +1,205 @@
+# Initialize Git repository
+git init
+
+# Create .gitignore file for Next.js
+echo "# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Prisma
+prisma/migrations/
+.env
+
+# Database
+*.db
+*.sqlite
+*.sqlite3" > .gitignore
+
+# Create README.md
+echo "# Cooking with Class
+
+A modern website for discovering and booking cooking classes in different cities.
+
+## Features
+
+- 🍳 Browse cooking classes by location
+- 🔍 Real-time search and filtering
+- 📱 Responsive design for all devices
+- 🖼️ Optimized images for fast loading
+- ⚡ Built with Next.js 14 for performance
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Authentication**: NextAuth.js (future)
+- **Deployment**: Vercel
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+\`\`\`bash
+git clone <repository-url>
+cd cooking-with-class
+\`\`\`
+
+2. Install dependencies:
+\`\`\`bash
+npm install
+\`\`\`
+
+3. Set up environment variables:
+\`\`\`bash
+cp .env.example .env.local
+\`\`\`
+
+4. Run the development server:
+\`\`\`bash
+npm run dev
+\`\`\`
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+\`\`\`
+app/
+├── page.tsx (homepage)
+├── layout.tsx (root layout)
+├── globals.css
+├── components/
+│   ├── Header/
+│   ├── ClassCard/
+│   ├── ClassModal/
+│   └── SearchBar/
+├── api/
+│   └── classes/
+├── data/
+├── types/
+└── utils/
+\`\`\`
+
+## Development
+
+- \`npm run dev\` - Start development server
+- \`npm run build\` - Build for production
+- \`npm run start\` - Start production server
+- \`npm run lint\` - Run ESLint
+- \`npm run type-check\` - Run TypeScript type checking
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: \`git checkout -b feature/amazing-feature\`
+3. Commit your changes: \`git commit -m 'Add amazing feature'\`
+4. Push to the branch: \`git push origin feature/amazing-feature\`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+- Project Link: [https://github.com/yourusername/cooking-with-class](https://github.com/yourusername/cooking-with-class)
+" > README.md
+
+# Check current Git status
+git status
+
+# Add all files to staging
+git add .
+
+# Commit the current state
+git commit -m "Setup: Complete project planning and Git configuration
+
+- Add comprehensive project plan for Cooking with Class website
+- Set up Next.js tech stack with TypeScript and Tailwind CSS
+- Create .gitignore for Next.js development
+- Add README.md with project documentation
+- Configure Git repository for version control
+
+Ready to begin Week 1: Project Setup & Basic Structure"
+
+# Check commit was successful
+git log --oneline -1 
