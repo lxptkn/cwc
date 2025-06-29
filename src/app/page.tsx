@@ -7,8 +7,9 @@ import ClassModal from '../components/ClassModal/ClassModal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import SkeletonCard from '../components/ui/SkeletonCard';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
+import PriceSlider from '../components/ui/PriceSlider';
 import { mockClasses } from '../data/mockClasses';
-import { filterClasses } from '../utils/searchUtils';
+import { filterClasses, getPriceRange } from '../utils/searchUtils';
 import { CookingClass } from '../types';
 
 export default function Home() {
@@ -18,6 +19,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Price filter state
+  const priceRange = getPriceRange(mockClasses);
+  const [minPrice, setMinPrice] = useState(priceRange.min);
+  const [maxPrice, setMaxPrice] = useState(priceRange.max);
 
   // Simulate loading state on initial load
   useEffect(() => {
@@ -41,7 +47,7 @@ export default function Home() {
     }
   }, [searchQuery]);
 
-  const filteredClasses = filterClasses(mockClasses, searchQuery);
+  const filteredClasses = filterClasses(mockClasses, searchQuery, minPrice, maxPrice);
 
   const handleClassClick = (cookingClass: CookingClass) => {
     try {
@@ -61,6 +67,11 @@ export default function Home() {
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
     setError(null); // Clear any previous errors
+  };
+
+  const handlePriceChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   if (error) {
@@ -107,6 +118,17 @@ export default function Home() {
               </p>
             )}
           </div>
+
+          {/* Filters Section */}
+          <div className="mb-8">
+            <PriceSlider
+              minPrice={priceRange.min}
+              maxPrice={priceRange.max}
+              currentMin={minPrice}
+              currentMax={maxPrice}
+              onPriceChange={handlePriceChange}
+            />
+          </div>
           
           {/* Class Grid */}
           {isLoading ? (
@@ -134,7 +156,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">No classes found</h3>
               <p className="text-gray-500">
-                Try adjusting your search terms or browse all available classes.
+                Try adjusting your search terms or price range to find more classes.
               </p>
             </div>
           )}
