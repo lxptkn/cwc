@@ -1,6 +1,8 @@
 'use client';
 
 import { CookingClass } from '../../types';
+import GoogleMapComponent from '../../components/ui/GoogleMap';
+import { useState, useEffect } from 'react';
 
 interface ClassModalProps {
   cookingClass: CookingClass | null;
@@ -10,6 +12,38 @@ interface ClassModalProps {
 
 export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModalProps) {
   if (!isOpen || !cookingClass) return null;
+
+  const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [mapLoading, setMapLoading] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen || !cookingClass) return;
+    setCoords(null);
+    setMapError(null);
+    setMapLoading(true);
+    // Geocode the address
+    const fetchCoords = async () => {
+      try {
+        const address = encodeURIComponent(cookingClass.address);
+        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.status === 'OK' && data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry.location;
+          setCoords({ lat, lng });
+        } else {
+          setMapError('Could not find location.');
+        }
+      } catch (err) {
+        setMapError('Failed to load map.');
+      } finally {
+        setMapLoading(false);
+      }
+    };
+    fetchCoords();
+  }, [isOpen, cookingClass]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
@@ -92,8 +126,17 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
             <p className="text-gray-600">{cookingClass.address}</p>
           </div>
 
+          {/* Map at the bottom */}
+          <div className="mt-8">
+            {mapLoading && <div className="flex justify-center"><span>Loading map...</span></div>}
+            {mapError && <div className="text-red-500 text-center">{mapError}</div>}
+            {coords && (
+              <GoogleMapComponent lat={coords.lat} lng={coords.lng} />
+            )}
+          </div>
+
           {/* Price and Booking */}
-          <div className="flex items-center justify-between pt-6 border-t">
+          <div className="flex items-center justify-between pt-6 border-t mt-8">
             <div className="text-3xl font-bold text-orange-600">
               ${cookingClass.price}
             </div>
