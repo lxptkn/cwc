@@ -11,6 +11,7 @@ import PriceSlider from '../components/ui/PriceSlider';
 import { mockClasses } from '../data/mockClasses';
 import { filterClasses, getPriceRange } from '../utils/searchUtils';
 import { CookingClass } from '../types';
+import Footer from '../components/ui/Button';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,6 +25,9 @@ export default function Home() {
   const priceRange = getPriceRange(mockClasses);
   const [minPrice, setMinPrice] = useState(priceRange.min);
   const [maxPrice, setMaxPrice] = useState(priceRange.max);
+
+  // Pagination state
+  const [resultsToShow, setResultsToShow] = useState(16);
 
   // Simulate loading state on initial load
   useEffect(() => {
@@ -47,7 +51,14 @@ export default function Home() {
     }
   }, [searchQuery]);
 
+  // Reset pagination when filters/search change
+  useEffect(() => {
+    setResultsToShow(16);
+  }, [searchQuery, minPrice, maxPrice]);
+
   const filteredClasses = filterClasses(mockClasses, searchQuery, minPrice, maxPrice);
+  const visibleClasses = filteredClasses.slice(0, resultsToShow);
+  const canLoadMore = resultsToShow < filteredClasses.length;
 
   const handleClassClick = (cookingClass: CookingClass) => {
     try {
@@ -138,15 +149,27 @@ export default function Home() {
               ))}
             </div>
           ) : filteredClasses.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredClasses.map((cookingClass) => (
-                <ClassCard
-                  key={cookingClass.id}
-                  cookingClass={cookingClass}
-                  onClick={handleClassClick}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {visibleClasses.map((cookingClass) => (
+                  <ClassCard
+                    key={cookingClass.id}
+                    cookingClass={cookingClass}
+                    onClick={handleClassClick}
+                  />
+                ))}
+              </div>
+              {canLoadMore && (
+                <div className="flex justify-center mt-8">
+                  <button
+                    onClick={() => setResultsToShow(r => r + 16)}
+                    className="px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-colors shadow-md"
+                  >
+                    Load More
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <div className="text-gray-400 mb-4">
@@ -168,6 +191,7 @@ export default function Home() {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />
+        <Footer />
       </div>
     </ErrorBoundary>
   );
