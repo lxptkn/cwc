@@ -85,6 +85,49 @@ A website for people to sign up for cooking classes in different cities. The fro
    - Social media links
    - Newsletter signup
 
+### Week 5: Site-wide Styling & Polish
+- Refine and unify color palette, typography, and spacing
+- Add hover/focus/active states for all interactive elements
+- Improve mobile and tablet responsiveness
+- Polish modal, card, and button styles
+- Add subtle animations and transitions for a modern feel
+
+### Week 6: Database Integration for Classes
+- Set up PostgreSQL (or Supabase/PlanetScale) database
+- Integrate Prisma ORM for type-safe database access
+- Migrate mock class data to the database
+- Update API routes to fetch/store classes from the database
+- Add seed script for initial class data
+
+### Week 7: User Authentication
+- Integrate NextAuth.js for authentication
+- Allow users to sign up, log in, and log out
+- Protect class creation and review features behind auth
+- Show user info in the header when logged in
+
+### Week 8: Build Footer Pages
+- Create About Us, Contact, Terms of Service, Privacy Policy, and FAQ pages
+- Add content and basic styling for each page
+- Link footer navigation to these pages
+
+### Week 9: Individual Class Pages
+- Create dynamic route for class detail pages (e.g., /class/[id])
+- Show full class info, map, reviews, and booking button
+- Add SEO meta tags for class pages
+- Link class cards to their detail pages
+
+### Week 10: Reviews & Ratings
+- Add reviews and ratings system for classes
+- Allow authenticated users to leave reviews
+- Display average rating and review list on class pages
+- Add backend API for reviews
+
+### Week 11: Class Photos
+- Allow class creators to upload photos
+- Store and display multiple images per class
+- Add image gallery to class detail pages
+- Optimize images for performance
+
 ## Detailed Feature Breakdown
 
 ### Header Component
