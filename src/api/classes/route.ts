@@ -1,20 +1,8 @@
 import { NextResponse } from 'next/server';
-import { mockClasses } from '../../data/mockClasses';
+import { getAllClasses } from '@/services/class-service';
 
 export async function GET() {
-  try {
-    return NextResponse.json({
-      success: true,
-      data: mockClasses,
-      count: mockClasses.length
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Failed to fetch classes' 
-      },
-      { status: 500 }
-    );
-  }
+  const { classes, error } = await getAllClasses();
+  if (error) return NextResponse.json({ error }, { status: 500 });
+  return NextResponse.json({ classes });
 }

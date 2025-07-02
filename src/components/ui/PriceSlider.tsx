@@ -77,10 +77,10 @@ export default function PriceSlider({
   return (
     <div className={`max-w-md ${className}`}>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Price Range
         </label>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-black">
           <span>${currentMin}</span>
           <span>${currentMax}</span>
         </div>
@@ -88,7 +88,7 @@ export default function PriceSlider({
       
       <div
         ref={sliderRef}
-        className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
+        className="relative h-2 bg-white border border-black rounded-full cursor-pointer"
         onMouseDown={(e) => {
           const rect = sliderRef.current?.getBoundingClientRect();
           if (!rect) return;
@@ -105,7 +105,7 @@ export default function PriceSlider({
       >
         {/* Track fill */}
         <div
-          className="absolute h-full bg-orange-500 rounded-full"
+          className="absolute h-full bg-black rounded-full"
           style={{
             left: `${minPercentage}%`,
             width: `${maxPercentage - minPercentage}%`
@@ -114,7 +114,7 @@ export default function PriceSlider({
         
         {/* Min thumb */}
         <div
-          className={`absolute top-1/2 w-3 h-3 bg-white border-2 border-orange-500 rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md hover:shadow-lg transition-shadow ${
+          className={`absolute top-1/2 w-3 h-3 bg-white border-2 border-black rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md hover:shadow-lg transition-shadow ${
             isDragging === 'min' ? 'shadow-lg scale-110' : ''
           }`}
           style={{ left: `${minPercentage}%` }}
@@ -123,7 +123,7 @@ export default function PriceSlider({
         
         {/* Max thumb */}
         <div
-          className={`absolute top-1/2 w-3 h-3 bg-white border-2 border-orange-500 rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md hover:shadow-lg transition-shadow ${
+          className={`absolute top-1/2 w-3 h-3 bg-white border-2 border-black rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md hover:shadow-lg transition-shadow ${
             isDragging === 'max' ? 'shadow-lg scale-110' : ''
           }`}
           style={{ left: `${maxPercentage}%` }}

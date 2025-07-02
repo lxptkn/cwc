@@ -7,12 +7,12 @@ interface HeaderProps {
 
 export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-warm-bg-alt border-b border-warm-border shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-orange-600">
+            <h1 className="text-2xl font-bold text-warm-orange font-serif" style={{ fontFamily: 'Georgia, Times New Roman, serif' }}>
               Cooking with Class
             </h1>
           </div>

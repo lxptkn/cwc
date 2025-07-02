@@ -47,13 +47,13 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in border border-black">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-900">{cookingClass.title}</h2>
+        <div className="flex justify-between items-center p-6 border-b border-black">
+          <h2 className="text-2xl font-bold text-black">{cookingClass.title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-smooth p-1 rounded-full hover:bg-gray-100"
+            className="text-black hover:text-white transition-smooth p-1 rounded-full hover:bg-black"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -64,14 +64,14 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
         {/* Content */}
         <div className="p-6">
           {/* Image placeholder */}
-          <div className="relative h-64 bg-gray-300 rounded-lg mb-6 overflow-hidden">
+          <div className="relative h-64 bg-white border border-black rounded-lg mb-6 overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-gray-500">Class Image</span>
+              <span className="text-black">Class Image</span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 mb-6 leading-relaxed">
+          <p className="text-black mb-6 leading-relaxed">
             {cookingClass.description}
           </p>
 
@@ -79,56 +79,56 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="space-y-3">
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="text-gray-600">{cookingClass.location}</span>
+                <span className="text-black">{cookingClass.location}</span>
               </div>
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span className="text-gray-600">{cookingClass.instructorName}</span>
+                <span className="text-black">{cookingClass.instructorName}</span>
               </div>
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-gray-600">{cookingClass.duration}</span>
+                <span className="text-black">{cookingClass.duration}</span>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                 </svg>
-                <span className="text-gray-600">{cookingClass.cuisineType}</span>
+                <span className="text-black">{cookingClass.cuisineType}</span>
               </div>
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
-                <span className="text-gray-600">{cookingClass.difficulty}</span>
+                <span className="text-black">{cookingClass.difficulty}</span>
               </div>
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <span className="text-gray-600">Max {cookingClass.maxStudents} students</span>
+                <span className="text-black">Max {cookingClass.maxStudents} students</span>
               </div>
             </div>
           </div>
 
           {/* Address */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Location</h3>
-            <p className="text-gray-600">{cookingClass.address}</p>
+            <h3 className="text-lg font-semibold text-black mb-2">Location</h3>
+            <p className="text-black">{cookingClass.address}</p>
           </div>
 
           {/* Map at the bottom */}
           <div className="mt-8">
-            {mapLoading && <div className="flex justify-center"><span>Loading map...</span></div>}
+            {mapLoading && <div className="flex justify-center"><span className="text-black">Loading map...</span></div>}
             {mapError && <div className="text-red-500 text-center">{mapError}</div>}
             {coords && (
               <GoogleMapComponent lat={coords.lat} lng={coords.lng} />
@@ -136,16 +136,18 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
           </div>
 
           {/* Price and Booking */}
-          <div className="flex items-center justify-between pt-6 border-t mt-8">
-            <div className="text-3xl font-bold text-orange-600">
+          <div className="flex items-center justify-between pt-6 border-t border-black mt-8">
+            <div className="text-3xl font-bold text-black">
               ${cookingClass.price}
             </div>
-            <button className="bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-smooth transform hover:scale-105">
+            <button className="bg-[#0033A0] text-white px-6 py-3 rounded-lg font-semibold border-2 border-[#0033A0] hover:bg-[#00247A] transition-all transform hover:scale-105 shadow-md hover:shadow-lg">
               Book This Class
             </button>
           </div>
         </div>
       </div>
+      {/* Force Tailwind to generate custom green classes */}
+      <div className="hidden bg-n64-green bg-n64-green-dark"></div>
     </div>
   );
 }
