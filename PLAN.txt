@@ -36,54 +36,54 @@ A website for people to sign up for cooking classes in different cities. The fro
 
 ## Phase 1: MVP (Minimum Viable Product)
 
-### Week 1: Project Setup & Basic Structure
-1. Initialize Next.js 14 project with TypeScript
-2. Set up Tailwind CSS
-3. Create basic layout with header (logo + search bar)
-4. Create mock data for cooking classes
-5. Set up Next.js Image component for optimized images
+### Week 1: Project Setup & Basic Structure ✅
+1. ✅ Initialize Next.js 14 project with TypeScript
+2. ✅ Set up Tailwind CSS
+3. ✅ Create basic layout with header (logo + search bar)
+4. ✅ Create mock data for cooking classes
+5. ✅ Set up Next.js Image component for optimized images
 
-### Week 2: Core Features
-1. Build the class listing component with Next.js Image
-2. Implement search/filter functionality
-3. Create modal component for class details
-4. Add responsive design
-5. Set up basic API routes for class data
+### Week 2: Core Features ✅
+1. ✅ Build the class listing component with Next.js Image
+2. ✅ Implement search/filter functionality
+3. ✅ Create modal component for class details
+4. ✅ Add responsive design
+5. ✅ Set up basic API routes for class data
 
-### Week 3: Polish & Testing
-1. Add loading states and error handling
-2. Optimize performance with Next.js features
-3. Test on different screen sizes
-4. Add animations and transitions
-5. Implement proper SEO meta tags
+### Week 3: Polish & Testing ✅
+1. ✅ Add loading states and error handling
+2. ✅ Optimize performance with Next.js features
+3. ✅ Test on different screen sizes
+4. ✅ Add animations and transitions
+5. ✅ Implement proper SEO meta tags
 
-### Week 4: Enhanced Features
-1. **Google Maps API Integration**
-   - Embed interactive map in each class modal
-   - Show exact location using the address data
-   - Allow users to get directions
-   - Display nearby landmarks or attractions
+### Week 4: Enhanced Features ✅
+1. ✅ **Google Maps API Integration**
+   - ✅ Embed interactive map in each class modal
+   - ✅ Show exact location using the address data
+   - ✅ Allow users to get directions
+   - ✅ Display nearby landmarks or attractions
 
-2. **Price Filter Slider**
-   - Dual-range slider for minimum and maximum price
-   - Real-time filtering as user adjusts slider
-   - Visual price range display
-   - Reset filter option
+2. ✅ **Price Filter Slider**
+   - ✅ Dual-range slider for minimum and maximum price
+   - ✅ Real-time filtering as user adjusts slider
+   - ✅ Visual price range display
+   - ✅ Reset filter option
 
-3. **Pagination & Row Limits**
-   - Limit initial display to 12-16 classes per page
-   - Add "Load More" button or pagination controls
-   - Maintain search/filter state across pages
-   - Smooth loading transitions
+3. ✅ **Pagination & Row Limits**
+   - ✅ Limit initial display to 12-16 classes per page
+   - ✅ Add "Load More" button or pagination controls
+   - ✅ Maintain search/filter state across pages
+   - ✅ Smooth loading transitions
 
-4. **Footer with Site Pages**
-   - About Us page
-   - Contact page
-   - Terms of Service
-   - Privacy Policy
-   - FAQ page
-   - Social media links
-   - Newsletter signup
+4. ✅ **Footer with Site Pages**
+   - ✅ About Us page
+   - ✅ Contact page
+   - ✅ Terms of Service
+   - ✅ Privacy Policy
+   - ✅ FAQ page
+   - ✅ Social media links
+   - ✅ Newsletter signup
 
 ### Week 5: Site-wide Styling & Polish
 - Refine and unify color palette, typography, and spacing
@@ -92,12 +92,12 @@ A website for people to sign up for cooking classes in different cities. The fro
 - Polish modal, card, and button styles
 - Add subtle animations and transitions for a modern feel
 
-### Week 6: Database Integration for Classes
-- Set up PostgreSQL (or Supabase/PlanetScale) database
-- Integrate Prisma ORM for type-safe database access
-- Migrate mock class data to the database
-- Update API routes to fetch/store classes from the database
-- Add seed script for initial class data
+### Week 6: Database Integration for Classes ✅
+- ✅ Set up PostgreSQL (or Supabase/PlanetScale) database
+- ✅ Integrate Prisma ORM for type-safe database access
+- ✅ Migrate mock class data to the database
+- ✅ Update API routes to fetch/store classes from the database
+- ✅ Add seed script for initial class data
 
 ### Week 7: User Authentication
 - Integrate NextAuth.js for authentication

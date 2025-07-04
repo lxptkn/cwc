@@ -12,4 +12,10 @@ export interface CookingClass {
   cuisineType: string;
   duration: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  rating: number;
+  about: string;
+  menu: string;
+  schedule: string;
+  highlights: string;
+  additionalInformation: string;
 }
