@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import MainHeader from '../components/Header/MainHeader';
 import SearchBar from '../components/Header/SearchBar';
 import ClassCard from '../components/ClassCard/ClassCard';
-import ClassModal from '../components/ClassModal/ClassModal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import SkeletonCard from '../components/ui/SkeletonCard';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
@@ -15,8 +14,6 @@ import Footer from '../components/ui/Footer';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedClass, setSelectedClass] = useState<CookingClass | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,21 +67,6 @@ export default function Home() {
   const filteredClasses = filterClasses(classes, searchQuery, minPrice, maxPrice);
   const visibleClasses = filteredClasses.slice(0, resultsToShow);
   const canLoadMore = resultsToShow < filteredClasses.length;
-
-  const handleClassClick = (cookingClass: CookingClass) => {
-    try {
-      setSelectedClass(cookingClass);
-      setIsModalOpen(true);
-    } catch (err) {
-      setError('Failed to open class details');
-      console.error('Error opening modal:', err);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedClass(null);
-  };
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
@@ -159,7 +141,6 @@ export default function Home() {
                   <ClassCard
                     key={cookingClass.id}
                     cookingClass={cookingClass}
-                    onClick={handleClassClick}
                   />
                 ))}
               </div>
@@ -189,12 +170,6 @@ export default function Home() {
           )}
         </main>
 
-        {/* Modal */}
-        <ClassModal
-          cookingClass={selectedClass}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        />
         <Footer />
       </div>
     </ErrorBoundary>

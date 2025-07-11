@@ -11,4 +11,17 @@ export async function getAllClasses() {
     // Handle error as needed
     return { classes: [], error: 'Failed to fetch classes.' }
   }
+}
+
+export async function getClassById(id: number) {
+  try {
+    const cookingClass = await prisma.class.findUnique({
+      where: { id },
+      include: { reviews: true },
+    })
+    return cookingClass
+  } catch (error) {
+    console.error('Error fetching class by ID:', error)
+    return null
+  }
 } 

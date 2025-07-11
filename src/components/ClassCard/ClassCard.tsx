@@ -1,18 +1,18 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { CookingClass } from '../../types';
 
 interface ClassCardProps {
   cookingClass: CookingClass;
-  onClick: (classData: CookingClass) => void;
 }
 
-export default function ClassCard({ cookingClass, onClick }: ClassCardProps) {
+export default function ClassCard({ cookingClass }: ClassCardProps) {
   return (
-    <div 
-      className="bg-warm-bg-alt rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-smooth cursor-pointer animate-fade-in group border border-warm-border"
-      onClick={() => onClick(cookingClass)}
+    <Link 
+      href={`/class/${cookingClass.id}`}
+      className="block bg-warm-bg-alt rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-smooth animate-fade-in group border border-warm-border"
     >
       {/* Image placeholder */}
       <div className="relative h-48 bg-warm-gray overflow-hidden">
@@ -54,6 +54,6 @@ export default function ClassCard({ cookingClass, onClick }: ClassCardProps) {
           <span>{cookingClass.maxStudents} students max</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -131,16 +131,16 @@ A website for people to sign up for cooking classes in different cities. The fro
   - ✅ Proper error handling and user feedback
   - ✅ Session management across page refreshes
 
-### Week 8: Build Footer Pages
-- Create About Us, Contact, Terms of Service, Privacy Policy, and FAQ pages
-- Add content and basic styling for each page
-- Link footer navigation to these pages
+### Week 8: Build Footer Pages ✅
+- ✅ Create About Us, Contact, Terms of Service, Privacy Policy, and FAQ pages
+- ✅ Add content and basic styling for each page
+- ✅ Link footer navigation to these pages
 
-### Week 9: Individual Class Pages
-- Create dynamic route for class detail pages (e.g., /class/[id])
-- Show full class info, map, reviews, and booking button
-- Add SEO meta tags for class pages
-- Link class cards to their detail pages
+### Week 9: Individual Class Pages ✅
+- ✅ Create dynamic route for class detail pages (e.g., /class/[id])
+- ✅ Show full class info, map, reviews, and booking button
+- ✅ Add SEO meta tags for class pages
+- ✅ Link class cards to their detail pages
 
 ### Week 10: Reviews & Ratings
 - Add reviews and ratings system for classes
