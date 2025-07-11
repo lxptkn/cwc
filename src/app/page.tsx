@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '../components/Header/Header';
+import MainHeader from '../components/Header/MainHeader';
+import SearchBar from '../components/Header/SearchBar';
 import ClassCard from '../components/ClassCard/ClassCard';
 import ClassModal from '../components/ClassModal/ClassModal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
@@ -118,21 +119,30 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-warm-bg">
-        <Header 
-          searchQuery={searchQuery} 
-          onSearchChange={handleSearchChange} 
-        />
+        <MainHeader />
         
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Filters Section */}
+          {/* Search Section */}
           <div className="mb-8">
-            <PriceSlider
-              minPrice={priceRange.min}
-              maxPrice={priceRange.max}
-              currentMin={minPrice}
-              currentMax={maxPrice}
-              onPriceChange={handlePriceChange}
-            />
+            <div className="max-w-md mx-auto">
+              <SearchBar 
+                searchQuery={searchQuery} 
+                onSearchChange={handleSearchChange} 
+              />
+            </div>
+          </div>
+          
+          {/* Price Filter Section */}
+          <div className="mb-8">
+            <div className="max-w-md mx-auto">
+              <PriceSlider
+                minPrice={priceRange.min}
+                maxPrice={priceRange.max}
+                currentMin={minPrice}
+                currentMax={maxPrice}
+                onPriceChange={handlePriceChange}
+              />
+            </div>
           </div>
           
           {/* Class Grid */}

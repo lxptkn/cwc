@@ -23,7 +23,7 @@ A website for people to sign up for cooking classes in different cities. The fro
 - **Next.js API Routes** - Built-in backend API endpoints
 - **Prisma** - Database ORM for type-safe database operations
 - **PostgreSQL** - Reliable relational database
-- **NextAuth.js** - Authentication solution (future phase)
+- **NextAuth.js** - Authentication solution ✅ COMPLETED
 
 ### Why Next.js?
 - **SEO Benefits** - Server-side rendering helps with search engine optimization
@@ -99,11 +99,37 @@ A website for people to sign up for cooking classes in different cities. The fro
 - ✅ Update API routes to fetch/store classes from the database
 - ✅ Add seed script for initial class data
 
-### Week 7: User Authentication
-- Integrate NextAuth.js for authentication
-- Allow users to sign up, log in, and log out
-- Protect class creation and review features behind auth
-- Show user info in the header when logged in
+### Week 7: User Authentication ✅ COMPLETED
+- ✅ **NextAuth.js Integration**
+  - ✅ Install and configure NextAuth.js v5 with Prisma adapter
+  - ✅ Set up credentials provider for email/password authentication
+  - ✅ Configure JWT session strategy
+  - ✅ Add proper environment variables (NEXTAUTH_SECRET, NEXTAUTH_URL)
+
+- ✅ **Database Schema Updates**
+  - ✅ Add NextAuth.js required models: User, Account, Session, VerificationToken
+  - ✅ Update Review model to link with users
+  - ✅ Add password field to User model for credentials authentication
+  - ✅ Create and run database migrations
+
+- ✅ **Authentication Components**
+  - ✅ Create AuthModal component with signup/signin forms
+  - ✅ Update Header component with authentication button
+  - ✅ Add SessionProvider for client-side session management
+  - ✅ Implement white modal design with black button text
+
+- ✅ **API Routes**
+  - ✅ Create NextAuth.js API route handler
+  - ✅ Implement custom signup API endpoint
+  - ✅ Add user service with password hashing using bcrypt
+  - ✅ Handle authentication errors and validation
+
+- ✅ **Security & UX**
+  - ✅ Password hashing with bcrypt (12 rounds)
+  - ✅ Email uniqueness validation
+  - ✅ Auto signin after successful registration
+  - ✅ Proper error handling and user feedback
+  - ✅ Session management across page refreshes
 
 ### Week 8: Build Footer Pages
 - Create About Us, Contact, Terms of Service, Privacy Policy, and FAQ pages
@@ -133,6 +159,7 @@ A website for people to sign up for cooking classes in different cities. The fro
 ### Header Component
 - Logo: "Cooking with Class" text (top left)
 - Search bar (top right) with real-time filtering
+- **Authentication button** (sign in/out with user info display) ✅
 - Responsive design for mobile
 - Next.js Link component for navigation
 
@@ -157,6 +184,14 @@ A website for people to sign up for cooking classes in different cities. The fro
 - No results state
 - Client-side filtering for immediate response
 
+### Authentication System ✅
+- **Sign Up**: Email, password, and optional name
+- **Sign In**: Email and password
+- **Sign Out**: Secure logout functionality
+- **Session Management**: Persistent login state
+- **Error Handling**: User-friendly error messages
+- **Security**: Password hashing and validation
+
 ## Updated File Structure (Next.js App Router)
 app/
 ├── page.tsx (homepage)
@@ -164,17 +199,26 @@ app/
 ├── globals.css
 ├── components/
 │   ├── Header/
-│   │   ├── Header.tsx
+│   │   ├── Header.tsx ✅ (updated with auth)
 │   │   └── SearchBar.tsx
 │   ├── ClassCard/
 │   │   └── ClassCard.tsx
 │   ├── ClassModal/
 │   │   └── ClassModal.tsx
+│   ├── AuthModal/ ✅ NEW
+│   │   └── AuthModal.tsx
+│   ├── Providers/ ✅ NEW
+│   │   └── SessionProvider.tsx
 │   └── ui/
 │       └── Button.tsx
 ├── api/
-│   └── classes/
-│       └── route.ts
+│   ├── classes/
+│   │   └── route.ts
+│   └── auth/ ✅ NEW
+│       ├── [...nextauth]/
+│       │   └── route.ts
+│       └── signup/
+│           └── route.ts
 ├── data/
 │   └── mockClasses.ts
 ├── types/
@@ -182,56 +226,100 @@ app/
 ├── utils/
 │   └── searchUtils.ts
 ├── lib/
-│   └── prisma.ts (future)
+│   ├── prisma.ts
+│   └── auth.ts ✅ NEW
+├── services/ ✅ NEW
+│   └── user-service.ts
 └── public/
     └── images/
         └── classes/
-```
 
-## Database Schema (Future Phase)
+## Database Schema (Updated with Authentication)
 ```sql
--- Classes table
-CREATE TABLE classes (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  location VARCHAR(255) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  image_url VARCHAR(500),
-  instructor_name VARCHAR(255),
-  class_date TIMESTAMP,
-  max_students INTEGER,
-  created_at TIMESTAMP DEFAULT NOW()
+-- NextAuth.js Tables ✅
+CREATE TABLE "User" (
+  "id" TEXT NOT NULL,
+  "name" TEXT,
+  "email" TEXT,
+  "password" TEXT,
+  "emailVerified" TIMESTAMP(3),
+  "image" TEXT,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "Account" (
+  "id" TEXT NOT NULL,
+  "userId" TEXT NOT NULL,
+  "type" TEXT NOT NULL,
+  "provider" TEXT NOT NULL,
+  "providerAccountId" TEXT NOT NULL,
+  "refresh_token" TEXT,
+  "access_token" TEXT,
+  "expires_at" INTEGER,
+  "token_type" TEXT,
+  "scope" TEXT,
+  "id_token" TEXT,
+  "session_state" TEXT,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "Session" (
+  "id" TEXT NOT NULL,
+  "sessionToken" TEXT NOT NULL,
+  "userId" TEXT NOT NULL,
+  "expires" TIMESTAMP(3) NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "VerificationToken" (
+  "identifier" TEXT NOT NULL,
+  "token" TEXT NOT NULL,
+  "expires" TIMESTAMP(3) NOT NULL
+);
+
+-- Classes table ✅
+CREATE TABLE "Class" (
+  "id" SERIAL PRIMARY KEY,
+  "title" VARCHAR(255) NOT NULL,
+  "description" TEXT,
+  "location" VARCHAR(255) NOT NULL,
+  "address" VARCHAR(255) NOT NULL,
+  "instructorName" VARCHAR(255) NOT NULL,
+  "duration" VARCHAR(100) NOT NULL,
+  "cuisineType" VARCHAR(100) NOT NULL,
+  "difficulty" VARCHAR(50) NOT NULL,
+  "rating" DECIMAL(3,2) NOT NULL,
+  "about" TEXT,
+  "menu" TEXT,
+  "schedule" TEXT,
+  "highlights" TEXT,
+  "additionalInformation" TEXT,
+  "maxStudents" INTEGER NOT NULL,
+  "price" DECIMAL(10,2) NOT NULL,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Reviews table ✅ (updated with user relationship)
+CREATE TABLE "Review" (
+  "id" SERIAL PRIMARY KEY,
+  "classId" INTEGER NOT NULL,
+  "author" VARCHAR(255) NOT NULL,
+  "content" TEXT NOT NULL,
+  "rating" DECIMAL(3,2) NOT NULL,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "userId" TEXT,
+  FOREIGN KEY ("classId") REFERENCES "Class"("id"),
+  FOREIGN KEY ("userId") REFERENCES "User"("id")
 );
 ```
 
-## Future Enhancements (Phase 2+)
-- **NextAuth.js** for user authentication and booking system
-- **Prisma** for database operations
-- **Stripe** for payment processing
-- **Email notifications** with Resend or similar
-- **Instructor profiles** and management
-- **Reviews and ratings** system
-- **Admin dashboard** for managing classes
-- **Search with Algolia** for advanced filtering
-- **Image upload** for class photos
+## Environment Variables Required ✅
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/cooking_with_class"
 
-## Getting Started Commands
-```bash
-# Create Next.js project
-npx create-next-app@latest cooking-with-class --typescript --tailwind --app --src-dir
-
-# Install additional dependencies
-npm install @prisma/client prisma next-auth
-
-# Initialize Prisma (future)
-npx prisma init
-
-# Run development server
-npm run dev
+# NextAuth.js
+NEXTAUTH_SECRET="your-secret-key-here"
+NEXTAUTH_URL="http://localhost:3000"
 ```
-
-## Deployment Strategy
-- **Vercel** (recommended for Next.js)
-- **Netlify** (alternative)
-- **Database**: Supabase, PlanetScale, or Railway
