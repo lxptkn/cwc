@@ -36,9 +36,9 @@ export default function SimpleHeader() {
             <div className="flex-shrink-0">
               <Button
                 onClick={handleAuthClick}
-                className="bg-warm-orange hover:bg-warm-orange-dark text-black px-4 py-2"
+                className="bg-warm-orange hover:bg-warm-orange/90 text-black px-4 py-2"
               >
-                {session ? `Sign Out (${session.user?.name || session.user?.email})` : "Sign In"}
+                {session ? 'Dashboard' : 'Sign In'}
               </Button>
             </div>
           </div>

@@ -1,8 +1,11 @@
 'use client'
 
 import { CookingClass } from '@/types'
+import { useSession } from 'next-auth/react'
 import AddressMap from '@/components/ui/AddressMap'
-import Button from '@/components/ui/Button'
+import BookingCard from './BookingCard'
+import ReviewsSection from './ReviewsSection'
+import InstructorControls from './InstructorControls'
 
 interface ClassDetailPageProps {
   cookingClass: CookingClass
@@ -30,6 +33,9 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
             <li className="text-warm-fg">{cookingClass.title}</li>
           </ol>
         </nav>
+
+        {/* Instructor Controls */}
+        <InstructorControls cookingClass={cookingClass} />
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -115,35 +121,15 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
                 <p className="text-warm-fg leading-relaxed">{cookingClass.additionalInformation}</p>
               </div>
             )}
+
+            {/* Reviews Section */}
+            <ReviewsSection cookingClass={cookingClass} />
           </div>
 
           {/* Right Column - Booking & Map */}
           <div className="space-y-6">
             {/* Booking Card */}
-            <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border sticky top-6">
-              <h3 className="text-xl font-semibold text-warm-fg mb-4">Book This Class</h3>
-              <div className="space-y-4">
-                <div className="text-center">
-                  <span className="text-3xl font-bold text-warm-green">${cookingClass.price}</span>
-                  <span className="text-warm-fg-muted ml-2">per person</span>
-                </div>
-                
-                <Button 
-                  className="w-full bg-warm-orange hover:bg-warm-orange/90 text-white font-semibold py-3 px-6 rounded-lg transition-smooth"
-                  onClick={() => {
-                    // TODO: Implement booking functionality
-                    alert('Booking functionality coming soon!')
-                  }}
-                >
-                  Book Now
-                </Button>
-                
-                <div className="text-center text-sm text-warm-fg-muted">
-                  <p>Secure booking • Free cancellation</p>
-                  <p>Instant confirmation</p>
-                </div>
-              </div>
-            </div>
+            <BookingCard cookingClass={cookingClass} />
 
             {/* Map */}
             <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border">

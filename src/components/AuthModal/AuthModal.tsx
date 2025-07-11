@@ -148,11 +148,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           )}
 
           <Button
-            type="submit"
+            onClick={handleSubmit}
             disabled={isLoading}
-            className="w-full bg-warm-orange hover:bg-warm-orange-dark text-black font-n64 py-2 rounded-block disabled:opacity-50"
+            className="w-full bg-warm-orange hover:bg-warm-orange/90 text-black px-6 py-3 rounded-lg font-semibold"
           >
-            {isLoading ? "Loading..." : (isSignUp ? "Sign Up" : "Sign In")}
+            {isLoading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Sign In')}
           </Button>
         </form>
 

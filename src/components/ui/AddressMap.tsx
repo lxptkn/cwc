@@ -111,7 +111,7 @@ export default function AddressMap({ address, className = '' }: AddressMapProps)
       <div className="mt-3 space-y-2">
         <button
           onClick={handleGetDirections}
-          className="w-full bg-warm-teal text-white px-4 py-2 rounded-lg font-medium hover:bg-warm-teal/90 transition-colors flex items-center justify-center"
+          className="w-full bg-warm-teal text-black px-4 py-2 rounded-lg font-medium hover:bg-warm-teal/90 transition-colors flex items-center justify-center"
         >
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3" />
@@ -120,7 +120,7 @@ export default function AddressMap({ address, className = '' }: AddressMapProps)
         </button>
         <button
           onClick={handleViewOnGoogleMaps}
-          className="w-full bg-warm-orange text-white px-4 py-2 rounded-lg font-medium hover:bg-warm-orange/90 transition-colors flex items-center justify-center"
+          className="w-full bg-warm-orange text-black px-4 py-2 rounded-lg font-medium hover:bg-warm-orange/90 transition-colors flex items-center justify-center"
         >
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

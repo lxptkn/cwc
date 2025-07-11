@@ -89,7 +89,7 @@ export default function Home() {
           <p className="text-warm-fg-dim mb-4">{error}</p>
           <button
             onClick={() => setError(null)}
-            className="bg-warm-orange text-warm-bg px-6 py-3 rounded-lg font-semibold hover:bg-warm-orange-light transition-colors"
+            className="bg-warm-orange text-black px-6 py-3 rounded-lg font-semibold hover:bg-warm-orange-light transition-colors"
           >
             Try Again
           </button>
@@ -148,7 +148,7 @@ export default function Home() {
                 <div className="flex justify-center mt-8">
                   <button
                     onClick={() => setResultsToShow(r => r + 16)}
-                    className="px-6 py-3 bg-warm-orange text-warm-bg rounded-lg font-semibold hover:bg-warm-orange-light transition-colors shadow-md"
+                    className="px-6 py-3 bg-warm-orange text-black rounded-lg font-semibold hover:bg-warm-orange-light transition-colors shadow-md"
                   >
                     Load More
                   </button>

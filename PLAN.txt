@@ -142,11 +142,30 @@ A website for people to sign up for cooking classes in different cities. The fro
 - ✅ Add SEO meta tags for class pages
 - ✅ Link class cards to their detail pages
 
-### Week 10: Reviews & Ratings
-- Add reviews and ratings system for classes
-- Allow authenticated users to leave reviews
-- Display average rating and review list on class pages
-- Add backend API for reviews
+### Week 10: User Features & Reviews System
+- **Reviews and Ratings System**
+  - Add reviews and ratings system for classes
+  - Allow authenticated users to leave reviews
+  - Display average rating and review list on class pages
+  - Add backend API for reviews
+
+- **Class Creation & Management**
+  - Create a class (for instructors/teachers)
+  - Class creation form with all required fields
+  - Instructor dashboard to manage their classes
+  - Edit class details functionality
+
+- **Class Booking System**
+  - Sign up for a class (for students/participants)
+  - Booking confirmation system
+  - User dashboard to view booked classes
+  - Booking history and status tracking
+
+- **Cancellation System**
+  - Cancel class as teacher (remove the class from the database)
+  - Cancel class reservation as student/participant
+  - Cancellation notifications and refund handling
+  - Update class availability when students cancel
 
 ### Week 11: Class Photos
 - Allow class creators to upload photos

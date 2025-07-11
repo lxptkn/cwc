@@ -140,7 +140,7 @@ export default function ClassModal({ cookingClass, isOpen, onClose }: ClassModal
             <div className="text-3xl font-bold text-black">
               ${cookingClass.price}
             </div>
-            <button className="bg-[#0033A0] text-white px-6 py-3 rounded-lg font-semibold border-2 border-[#0033A0] hover:bg-[#00247A] transition-all transform hover:scale-105 shadow-md hover:shadow-lg">
+            <button className="bg-[#0033A0] text-black px-6 py-3 rounded-lg font-semibold border-2 border-[#0033A0] hover:bg-[#00247A] transition-all transform hover:scale-105 shadow-md hover:shadow-lg">
               Book This Class
             </button>
           </div>

@@ -12,7 +12,7 @@ export default function Button({
     <button
       className={`
         bg-warm-orange
-        text-warm-bg
+        text-black
         font-semibold
         text-lg
         px-6 py-3

@@ -36,20 +36,28 @@ export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
             </div>
             
             {/* Search Bar */}
-            <div className="flex-1 max-w-md ml-8">
+            <div className="flex-1 max-w-md ml-8 mr-4">
               <SearchBar 
                 searchQuery={searchQuery} 
                 onSearchChange={onSearchChange} 
               />
             </div>
 
-            {/* Auth Button */}
-            <div className="flex-shrink-0 ml-4">
+            {/* Auth & Dashboard Buttons */}
+            <div className="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
+              {session && (
+                <Button
+                  onClick={() => window.location.href = '/create-class'}
+                  className="bg-warm-orange hover:bg-warm-orange/90 text-black px-2 py-2 sm:px-4 text-sm sm:text-base"
+                >
+                  Create Class
+                </Button>
+              )}
               <Button
                 onClick={handleAuthClick}
-                className="bg-warm-orange hover:bg-warm-orange-dark text-black px-4 py-2"
+                className="bg-warm-orange hover:bg-warm-orange/90 text-black px-2 py-2 sm:px-4 text-sm sm:text-base"
               >
-                {session ? `Sign Out (${session.user?.name || session.user?.email})` : "Sign In"}
+                {session ? 'Sign Out' : 'Sign In'}
               </Button>
             </div>
           </div>
