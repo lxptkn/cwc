@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ClassCard } from "@/components/class-card"
 import { SignUpForm } from "@/components/sign-up-form"
 import { TestimonialCard } from "@/components/testimonial-card"
+import { ClassGallery } from '@/components/class-gallery/ClassGallery'
 
 export default function Home() {
   return (
@@ -49,28 +50,8 @@ export default function Home() {
             <p className="mt-4 max-w-2xl font-serif text-gray-600">
               From basics to advanced techniques, our classes cater to all skill levels.
             </p>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <ClassCard
-                title="Italian Basics"
-                description="Learn the fundamentals of Italian cuisine, from pasta making to perfect sauces."
-                image="/placeholder.svg?height=400&width=600"
-                price="$120"
-                duration="4 weeks"
-              />
-              <ClassCard
-                title="French Pastry"
-                description="Master the art of French pastry with our comprehensive baking course."
-                image="/placeholder.svg?height=400&width=600"
-                price="$150"
-                duration="6 weeks"
-              />
-              <ClassCard
-                title="Asian Fusion"
-                description="Explore the flavors of Asia and learn to create fusion dishes that impress."
-                image="/placeholder.svg?height=400&width=600"
-                price="$135"
-                duration="5 weeks"
-              />
+            <div className="mt-8">
+              <ClassGallery />
             </div>
           </div>
         </section>
