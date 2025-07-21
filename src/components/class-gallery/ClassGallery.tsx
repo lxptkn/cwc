@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { ClassCard } from '@/components/class-card'
 import PriceSlider from '@/components/ui/PriceSlider'
