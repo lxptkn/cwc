@@ -20,6 +20,25 @@ export default function MainHeader() {
 
   return (
     <>
+    
+    <header className="border-b">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <Link href="/" className="text-2xl font-semibold">
+            Cooking with Class
+          </Link>
+          <nav className="hidden space-x-6 md:flex">
+            <Link href="#classes" className="text-sm font-medium hover:underline">
+              Classes
+            </Link>
+            <Link href="#testimonials" className="text-sm font-medium hover:underline">
+              Testimonials
+            </Link>
+            <Link href="#signup" className="text-sm font-medium hover:underline">
+              Sign Up
+            </Link>
+          </nav>
+        </div>
+    </header>
       <header className="bg-warm-bg-alt border-b border-warm-border shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">

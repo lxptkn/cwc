@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -67,9 +67,9 @@ export function SignUpForm() {
           </SelectContent>
         </Select>
       </div>
-      <button type="submit" className="w-full bg-gray-900 hover:bg-gray-900/90">
+      <Button type="submit" className="w-full bg-gray-900 hover:bg-gray-900/90">
         Sign Up
-      </button>
+      </Button>
     </form>
   )
 }
