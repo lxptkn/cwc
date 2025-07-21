@@ -1,6 +1,7 @@
 import type React from "react"
 import "./globals.css"
 import { Playfair_Display } from "next/font/google"
+import { SessionProvider } from '@/components/Providers/SessionProvider'
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -20,7 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={playfair.variable}>
-      <body className="min-h-screen bg-white font-serif antialiased">{children}</body>
+      <body className="min-h-screen bg-white font-serif antialiased">
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      </body>
     </html>
   )
 }

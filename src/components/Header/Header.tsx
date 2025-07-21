@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useSession, signOut } from "next-auth/react"
 import SearchBar from './SearchBar'
-import Button from "@/components/ui/Button"
+import { Button } from "@/components/ui/Button"
 import { AuthModal } from "@/components/AuthModal/AuthModal"
 
 interface HeaderProps {
