@@ -77,10 +77,10 @@ export default function PriceSlider({
   return (
     <div className={`max-w-md ${className}`}>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-black mb-2">
+        <label className="block text-sm font-medium text-black dark:text-white mb-2">
           Price Range
         </label>
-        <div className="flex justify-between text-sm text-black">
+        <div className="flex justify-between text-sm text-black dark:text-white">
           <span>${currentMin}</span>
           <span>${currentMax}</span>
         </div>
@@ -88,7 +88,7 @@ export default function PriceSlider({
       
       <div
         ref={sliderRef}
-        className="relative h-2 bg-white border border-black rounded-full cursor-pointer"
+        className="relative h-2 bg-white dark:bg-gray-900 border border-black dark:border-white rounded-full cursor-pointer"
         onMouseDown={(e) => {
           const rect = sliderRef.current?.getBoundingClientRect();
           if (!rect) return;
@@ -105,7 +105,7 @@ export default function PriceSlider({
       >
         {/* Track fill */}
         <div
-          className="absolute h-full bg-black rounded-full"
+          className="absolute h-full bg-black dark:bg-gray-600 rounded-full"
           style={{
             left: `${minPercentage}%`,
             width: `${maxPercentage - minPercentage}%`

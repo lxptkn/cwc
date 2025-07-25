@@ -11,6 +11,8 @@ import PriceSlider from '../components/ui/PriceSlider';
 import { filterClasses, getPriceRange } from '../utils/searchUtils';
 import { CookingClass } from '../types';
 import Footer from '../components/ui/Footer';
+import { TestimonialCard } from "../components/TestimonialCard/testimonial-card"
+
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,10 +102,21 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-warm-bg">
+      <div className="min-h-screen bg-warm-bg dark:bg-gray-800">
         <MainHeader />
-        
+        <section className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-900">
+            <div className="container mx-auto px-4 text-center">
+              <h1 className="font-serif text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-gray-900 dark:text-white">
+                Master the Art of Cooking
+              </h1>
+              <p className="mx-auto mt-4 max-w-2xl font-serif text-lg text-gray-600 dark:text-gray-300 md:text-xl">
+                Join our expert-led cooking classes and transform your culinary skills from amateur to professional.
+              </p>
+              
+            </div>
+          </section>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          
           {/* Search Section */}
           <div className="mb-8">
             <div className="max-w-md mx-auto">
@@ -148,12 +161,13 @@ export default function Home() {
                 <div className="flex justify-center mt-8">
                   <button
                     onClick={() => setResultsToShow(r => r + 16)}
-                    className="px-6 py-3 bg-warm-orange text-black rounded-lg font-semibold hover:bg-warm-orange-light transition-colors shadow-md"
+                    className="px-6 py-3 bg-warm-orange  text-black rounded-lg font-semibold hover:bg-warm-orange-light transition-colors shadow-md"
                   >
                     Load More
                   </button>
                 </div>
               )}
+              
             </>
           ) : (
             <div className="text-center py-12">
@@ -168,8 +182,32 @@ export default function Home() {
               </p>
             </div>
           )}
+          
         </main>
-
+          <section id="testimonials" className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-900">
+            <div className="container mx-auto px-4">
+              <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl text-gray-900 dark:text-white">
+                What Our Students Say
+              </h2>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <TestimonialCard
+                  quote="The Italian cooking class completely transformed my home cooking. I now make pasta from scratch every weekend!"
+                  author="Sarah Johnson"
+                  role="Home Cook"
+                />
+                <TestimonialCard
+                  quote="As a professional chef, I was impressed by the techniques taught in the French Pastry course. Truly exceptional."
+                  author="Michael Chen"
+                  role="Restaurant Owner"
+                />
+                <TestimonialCard
+                  quote="The instructors are patient and knowledgeable. I went from burning water to making complex dishes in just weeks."
+                  author="Emma Rodriguez"
+                  role="Beginner Cook"
+                />
+              </div>
+            </div>
+          </section>
         <Footer />
       </div>
     </ErrorBoundary>

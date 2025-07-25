@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
     './src/app/**/*.{js,ts,jsx,tsx}',
@@ -9,8 +11,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        ...colors,
         // Warm vibrant color palette inspired by the image
-        'warm-bg': '#1a1a1a',
+        /*'warm-bg': '#1a1a1a',
         'warm-bg-alt': '#2a2a2a',
         'warm-fg': '#f8f8f8',
         'warm-fg-dim': '#e0e0e0',
@@ -31,7 +34,7 @@ const config: Config = {
         'warm-gray': '#696969',
         'warm-gray-alt': '#808080',
         'warm-border': '#404040',
-        'warm-border-alt': '#505050',
+        'warm-border-alt': '#505050',*/
       },
       fontFamily: {
         n64: [

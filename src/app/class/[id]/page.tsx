@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getClassById } from '@/services/class-service'
 import ClassDetailPage from '@/components/ClassDetail/ClassDetailPage'
+import MainHeader from '@/components/Header/MainHeader'
 
 interface ClassPageProps {
   params: {
@@ -58,7 +59,12 @@ export default async function ClassPage({ params }: ClassPageProps) {
       notFound()
     }
 
-    return <ClassDetailPage cookingClass={cookingClass} />
+    return (
+      <>
+        <MainHeader />
+        <ClassDetailPage cookingClass={cookingClass} />
+      </>
+    )
   } catch (error) {
     console.error('Error fetching class:', error)
     notFound()

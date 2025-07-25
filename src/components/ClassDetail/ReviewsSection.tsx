@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 import { CookingClass, Review } from '@/types'
 
 interface ReviewsSectionProps {

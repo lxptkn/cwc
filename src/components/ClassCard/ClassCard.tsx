@@ -12,12 +12,18 @@ export default function ClassCard({ cookingClass }: ClassCardProps) {
   return (
     <Link 
       href={`/class/${cookingClass.id}`}
-      className="block bg-warm-bg-alt rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-smooth animate-fade-in group border border-warm-border"
+      className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors"
     >
       {/* Image placeholder */}
       <div className="relative h-48 bg-warm-gray overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-smooth">
-          <span className="text-warm-fg-muted text-sm">Class Image</span>
+          <img 
+            src="/placeholder.svg" 
+            alt="Class placeholder" 
+            width={1200} 
+            height={1200}
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
       
