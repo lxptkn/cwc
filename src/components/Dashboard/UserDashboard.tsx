@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { User, Booking, CookingClass } from '@/types'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 
 interface UserDashboardProps {
   user: User

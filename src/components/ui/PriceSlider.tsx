@@ -105,7 +105,7 @@ export default function PriceSlider({
       >
         {/* Track fill */}
         <div
-          className="absolute h-full bg-black dark:bg-gray-600 rounded-full"
+          className="absolute h-full bg-gray-200 dark:bg-gray-600 rounded-full"
           style={{
             left: `${minPercentage}%`,
             width: `${maxPercentage - minPercentage}%`

@@ -104,7 +104,7 @@ export default function Home() {
     <ErrorBoundary>
       <div className="min-h-screen bg-warm-bg dark:bg-gray-800">
         <MainHeader />
-        <section className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-900">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-100 dark:bg-gray-900">
             <div className="container mx-auto px-4 text-center">
               <h1 className="font-serif text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-gray-900 dark:text-white">
                 Master the Art of Cooking
@@ -161,9 +161,9 @@ export default function Home() {
                 <div className="flex justify-center mt-8">
                   <button
                     onClick={() => setResultsToShow(r => r + 16)}
-                    className="px-6 py-3 bg-warm-orange  text-black rounded-lg font-semibold hover:bg-warm-orange-light transition-colors shadow-md"
+                    className="inline-flex px-20 py-3 items-center justify-center rounded-md border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
                   >
-                    Load More
+                    Load More...
                   </button>
                 </div>
               )}
@@ -184,7 +184,7 @@ export default function Home() {
           )}
           
         </main>
-          <section id="testimonials" className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-900">
+          <section id="testimonials" className="py-12 md:py-16 lg:py-20 bg-gray-100 dark:bg-gray-900">
             <div className="container mx-auto px-4">
               <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl text-gray-900 dark:text-white">
                 What Our Students Say
