@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 import { CreateClassData } from '@/types'
 
 export default function CreateClassForm() {

@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { User, Booking, CookingClass } from '@/types'
 import { Button } from '@/components/ui/Button'
+import { Trash2 } from 'lucide-react'
 
 interface UserDashboardProps {
   user: User
@@ -52,11 +53,20 @@ export default function UserDashboard({ user }: UserDashboardProps) {
       })
 
       if (response.ok) {
-        setBookings(prev => prev.filter(booking => booking.id !== bookingId))
+        // Update the booking status to CANCELLED instead of removing it
+        setBookings(prev => prev.map(booking => 
+          booking.id === bookingId 
+            ? { ...booking, status: 'CANCELLED' }
+            : booking
+        ))
       }
     } catch (error) {
       console.error('Error cancelling booking:', error)
     }
+  }
+
+  const handleRemoveCancelledBooking = (bookingId: number) => {
+    setBookings(prev => prev.filter(booking => booking.id !== bookingId))
   }
 
   const getStatusColor = (status: string) => {
@@ -180,16 +190,24 @@ export default function UserDashboard({ user }: UserDashboardProps) {
                       </div>
                       <div className="flex space-x-2">
                         <Link href={`/class/${booking.classId}`}>
-                          <Button className="bg-warm-teal hover:bg-warm-teal/90 text-black text-sm">
+                          <Button className="bg-warm-teal hover:bg-warm-teal/90 text-black text-sm cursor-pointer">
                             View Class
                           </Button>
                         </Link>
                         {booking.status === 'CONFIRMED' && (
                           <Button
                             onClick={() => handleCancelBooking(booking.id)}
-                            className="bg-warm-orange hover:bg-warm-orange/90 text-black text-sm"
+                            className="bg-warm-orange hover:bg-warm-orange/90 text-black text-sm cursor-pointer"
                           >
                             Cancel
+                          </Button>
+                        )}
+                        {booking.status === 'CANCELLED' && (
+                          <Button
+                            onClick={() => handleRemoveCancelledBooking(booking.id)}
+                            className="bg-warm-red hover:bg-warm-red/90 text-black dark:text-white text-sm cursor-pointer"
+                          >
+                            <Trash2 className="h-4 w-4 mr-1" /> Remove
                           </Button>
                         )}
                       </div>

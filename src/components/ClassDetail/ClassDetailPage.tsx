@@ -12,6 +12,7 @@ import { Button } from '../ui/Button'
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import Footer from '@/components/ui/Footer';
+import BookingButton from './BookingButton'
 
 interface ClassDetailPageProps {
   cookingClass: CookingClass
@@ -130,14 +131,14 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
 
                 {/* Booking Card - Now properly positioned as right sidebar */}
                 <div className="lg:col-span-1">
-                  <Card className="sticky top-8">
+                  <Card className="sticky top-8 bg-gray-100 dark:bg-gray-900">
                     <CardContent className="p-6">
                       <div className="text-center mb-6">
                         <div className="text-3xl font-bold mb-2">${cookingClass.price}</div>
-                        <div className="text-sm text-gray-500">per person</div>
+                        <div className="text-sm text-gray-500 pb-6">per person</div>
                       </div>
 
-                      <Button className="w-full mb-4 bg-gray-900 hover:bg-gray-900/90">Book This Class</Button>
+                      <BookingButton cookingClass={cookingClass} />
 
                       <div className="space-y-3 text-sm">
                         <div className="flex justify-between">
@@ -176,14 +177,16 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
                       </div>
                     </CardContent>
                   </Card>
+                  
                 </div>
+                
               </div>
             </div>
           </section>
         </main>
       </div>
 
-      {/* Instructor Section - Moved outside the main container */}
+      {/* Instructor Section */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-serif text-3xl font-bold mb-8">Meet Your Instructor</h2>

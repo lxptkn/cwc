@@ -3,19 +3,27 @@ import { BookingStatus } from '@/types'
 
 export async function createBooking(classId: number, userId: string) {
   try {
-    // Check if user is already booked for this class
-    const existingBooking = await prisma.booking.findUnique({
+    // Check if user is already booked for this class (only CONFIRMED bookings)
+    const existingConfirmedBooking = await prisma.booking.findFirst({
       where: {
-        classId_userId: {
-          classId,
-          userId,
-        },
+        classId,
+        userId,
+        status: 'CONFIRMED',
       },
     })
 
-    if (existingBooking) {
+    if (existingConfirmedBooking) {
       throw new Error('You are already booked for this class')
     }
+
+    // Check if there's a cancelled booking we can reactivate
+    const existingCancelledBooking = await prisma.booking.findFirst({
+      where: {
+        classId,
+        userId,
+        status: 'CANCELLED',
+      },
+    })
 
     // Check if class has available spots
     const classData = await prisma.class.findUnique({
@@ -37,17 +45,32 @@ export async function createBooking(classId: number, userId: string) {
       throw new Error('This class is full')
     }
 
-    const booking = await prisma.booking.create({
-      data: {
-        classId,
-        userId,
-        status: 'CONFIRMED',
-      },
-      include: {
-        class: true,
-        user: true,
-      },
-    })
+    let booking
+
+    if (existingCancelledBooking) {
+      // Reactivate the cancelled booking
+      booking = await prisma.booking.update({
+        where: { id: existingCancelledBooking.id },
+        data: { status: 'CONFIRMED' },
+        include: {
+          class: true,
+          user: true,
+        },
+      })
+    } else {
+      // Create a new booking
+      booking = await prisma.booking.create({
+        data: {
+          classId,
+          userId,
+          status: 'CONFIRMED',
+        },
+        include: {
+          class: true,
+          user: true,
+        },
+      })
+    }
 
     return { booking }
   } catch (error) {

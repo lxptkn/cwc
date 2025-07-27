@@ -152,7 +152,7 @@ export default function BookingCard({ cookingClass }: BookingCardProps) {
           <Button 
             className={`w-full font-semibold py-3 px-6 rounded-lg transition-smooth ${
               availableSpots > 0 && session?.user?.id
-                ? 'bg-warm-orange hover:bg-warm-orange/90 text-black'
+                ? 'bg-warm-orange hover:bg-warm-orange/90 text-black dark:text-white'
                 : 'bg-warm-gray text-warm-fg-muted cursor-not-allowed'
             }`}
             onClick={handleBooking}
