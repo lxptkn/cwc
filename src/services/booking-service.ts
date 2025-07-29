@@ -6,8 +6,8 @@ export async function createBooking(classId: number, userId: string) {
     // Check if user is already booked for this class (only CONFIRMED bookings)
     const existingConfirmedBooking = await prisma.booking.findFirst({
       where: {
-        classId,
-        userId,
+          classId,
+          userId,
         status: 'CONFIRMED',
       },
     })
@@ -60,16 +60,16 @@ export async function createBooking(classId: number, userId: string) {
     } else {
       // Create a new booking
       booking = await prisma.booking.create({
-        data: {
-          classId,
-          userId,
-          status: 'CONFIRMED',
-        },
-        include: {
-          class: true,
-          user: true,
-        },
-      })
+      data: {
+        classId,
+        userId,
+        status: 'CONFIRMED',
+      },
+      include: {
+        class: true,
+        user: true,
+      },
+    })
     }
 
     return { booking }

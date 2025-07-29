@@ -173,6 +173,12 @@ A website for people to sign up for cooking classes in different cities. The fro
 - Add image gallery to class detail pages
 - Optimize images for performance
 
+### Week 12: Additional Touches
+- Class Date 
+- Class Time 
+- Class Image 
+
+
 ## Detailed Feature Breakdown
 
 ### Header Component

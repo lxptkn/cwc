@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/Button'
 import { CreateClassData } from '@/types'
+import MainHeader from '../Header/MainHeader'
+import Footer from '@/components/ui/Footer';
 
 export default function CreateClassForm() {
   const { data: session } = useSession()
@@ -90,7 +92,8 @@ export default function CreateClassForm() {
   }
 
   return (
-    <div className="min-h-screen bg-warm-bg">
+    <div className="min-h-screen bg-warm-bg dark:bg-gray-800">
+      <MainHeader />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -365,14 +368,16 @@ export default function CreateClassForm() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-warm-orange hover:bg-warm-orange/90 text-black px-6 py-3 rounded-lg"
+                className="bg-warm-orange hover:bg-warm-orange/90 text-black dark:text-white px-6 py-3 rounded-lg"
               >
                 {isSubmitting ? 'Creating...' : 'Create Class'}
               </Button>
             </div>
           </form>
+          
         </div>
       </div>
+      <Footer />
     </div>
   )
 } 
