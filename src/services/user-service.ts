@@ -33,4 +33,37 @@ export async function createUser({ email, password, name }: {
     email: user.email,
     name: user.name
   }
+}
+
+export async function getUserById(id: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    })
+    return user
+  } catch (error) {
+    console.error('Error fetching user by ID:', error)
+    return null
+  }
+}
+
+export async function updateUser(id: string, userData: {
+  name?: string
+  bio?: string
+  yearsExperience?: number
+  profileImage?: string
+  specialties?: string[]
+  awards?: string[]
+  languages?: string[]
+}) {
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: userData,
+    })
+    return { user }
+  } catch (error) {
+    console.error('Error updating user:', error)
+    throw error
+  }
 } 

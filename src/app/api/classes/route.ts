@@ -23,9 +23,9 @@ export async function POST(request: NextRequest) {
     const classData: CreateClassData = await request.json()
     
     // Basic validation
-    if (!classData.title || !classData.description || !classData.location) {
+    if (!classData.title || !classData.description) {
       return NextResponse.json(
-        { error: 'Title, description, and location are required' },
+        { error: 'Title and description are required' },
         { status: 400 }
       )
     }

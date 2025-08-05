@@ -3,28 +3,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CookingClass } from '../../types';
+import { FALLBACK_IMAGES } from '@/utils/imageUtils';
 
 interface ClassCardProps {
   cookingClass: CookingClass;
 }
 
 export default function ClassCard({ cookingClass }: ClassCardProps) {
+  const classImage = cookingClass.image || FALLBACK_IMAGES.class;
+
   return (
     <Link 
       href={`/class/${cookingClass.id}`}
-      className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors"
+      className="group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors hover:shadow-lg"
     >
-      {/* Image placeholder */}
+      {/* Class Image */}
       <div className="relative h-48 bg-warm-gray overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-smooth">
-          <img 
-            src="/placeholder.svg" 
-            alt="Class placeholder" 
-            width={1200} 
-            height={1200}
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <Image 
+          src={classImage}
+          alt={`${cookingClass.title} class`}
+          width={400}
+          height={300}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement
+            target.src = FALLBACK_IMAGES.class
+          }}
+        />
       </div>
       
       {/* Content */}
@@ -55,10 +60,32 @@ export default function ClassCard({ cookingClass }: ClassCardProps) {
           </span>
         </div>
         
-        <div className="flex items-center justify-between text-sm text-warm-fg-muted">
+        <div className="flex items-center justify-between text-sm text-warm-fg-muted mb-3">
           <span>{cookingClass.duration}</span>
           <span>{cookingClass.maxStudents} students max</span>
         </div>
+        
+        {/* Instructor Info */}
+        {cookingClass.instructor && (
+          <div className="flex items-center space-x-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+            <div className="relative w-6 h-6 rounded-full overflow-hidden">
+              <Image
+                src={cookingClass.instructor.profileImage || FALLBACK_IMAGES.instructor}
+                alt={`${cookingClass.instructor.name} profile`}
+                width={24}
+                height={24}
+                className="object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = FALLBACK_IMAGES.instructor
+                }}
+              />
+            </div>
+            <span className="text-xs text-warm-fg-muted">
+              {cookingClass.instructor.name}
+            </span>
+          </div>
+        )}
       </div>
     </Link>
   );

@@ -1,350 +1,203 @@
-# Cooking with Class - Project Plan (Updated for Next.js)
+# Cooking with Class - Instructor Profiles & Images Implementation Plan
 
-## Project Overview
-A website for people to sign up for cooking classes in different cities. The front page displays a list of cooking classes with real-time search filtering and modal details.
+## Overview
+This plan outlines the implementation of instructor profiles (Option 1 from adding instructors.md) and image support for both classes and user profiles.
 
-## Core Features
-- **Header**: Logo ("Cooking with Class") on top left, search bar on top right
-- **Class Listing**: Grid of class cards showing image, title, location, and price
-- **Search**: Real-time filtering of classes
-- **Modal**: Detailed class information when clicking on a class
-- **Responsive Design**: Works on desktop, tablet, and mobile
+## Phase 1: Database Schema Updates
 
-## Updated Tech Stack (Next.js)
+### 1.1 Update Prisma Schema
+- Add instructor profile fields to User model (already done in schema)
+- Add image field to Class model
+- Generate and apply migration
 
-### Frontend
-- **Next.js 14** with App Router - Full-stack React framework
-- **React 18** - Interactive UI components
-- **TypeScript** - Better code quality and developer experience
-- **Tailwind CSS** - Rapid, responsive styling
-- **Next.js Image component** - Optimized image loading and display
-
-### Backend (Built into Next.js)
-- **Next.js API Routes** - Built-in backend API endpoints
-- **Prisma** - Database ORM for type-safe database operations
-- **PostgreSQL** - Reliable relational database
-- **NextAuth.js** - Authentication solution ✅ COMPLETED
-
-### Why Next.js?
-- **SEO Benefits** - Server-side rendering helps with search engine optimization
-- **Performance** - Faster initial page loads and better user experience
-- **Image Optimization** - Automatic optimization for cooking class photos
-- **All-in-One Solution** - Frontend + backend in one project
-- **Easy Deployment** - Optimized for Vercel, Netlify, and other platforms
-- **Scalability** - Easy to add more pages and features
-- **Built-in API** - No separate server needed
-
-## Phase 1: MVP (Minimum Viable Product)
-
-### Week 1: Project Setup & Basic Structure ✅
-1. ✅ Initialize Next.js 14 project with TypeScript
-2. ✅ Set up Tailwind CSS
-3. ✅ Create basic layout with header (logo + search bar)
-4. ✅ Create mock data for cooking classes
-5. ✅ Set up Next.js Image component for optimized images
-
-### Week 2: Core Features ✅
-1. ✅ Build the class listing component with Next.js Image
-2. ✅ Implement search/filter functionality
-3. ✅ Create modal component for class details
-4. ✅ Add responsive design
-5. ✅ Set up basic API routes for class data
-
-### Week 3: Polish & Testing ✅
-1. ✅ Add loading states and error handling
-2. ✅ Optimize performance with Next.js features
-3. ✅ Test on different screen sizes
-4. ✅ Add animations and transitions
-5. ✅ Implement proper SEO meta tags
-
-### Week 4: Enhanced Features ✅
-1. ✅ **Google Maps API Integration**
-   - ✅ Embed interactive map in each class modal
-   - ✅ Show exact location using the address data
-   - ✅ Allow users to get directions
-   - ✅ Display nearby landmarks or attractions
-
-2. ✅ **Price Filter Slider**
-   - ✅ Dual-range slider for minimum and maximum price
-   - ✅ Real-time filtering as user adjusts slider
-   - ✅ Visual price range display
-   - ✅ Reset filter option
-
-3. ✅ **Pagination & Row Limits**
-   - ✅ Limit initial display to 12-16 classes per page
-   - ✅ Add "Load More" button or pagination controls
-   - ✅ Maintain search/filter state across pages
-   - ✅ Smooth loading transitions
-
-4. ✅ **Footer with Site Pages**
-   - ✅ About Us page
-   - ✅ Contact page
-   - ✅ Terms of Service
-   - ✅ Privacy Policy
-   - ✅ FAQ page
-   - ✅ Social media links
-   - ✅ Newsletter signup
-
-### Week 5: Site-wide Styling & Polish
-- Refine and unify color palette, typography, and spacing
-- Add hover/focus/active states for all interactive elements
-- Improve mobile and tablet responsiveness
-- Polish modal, card, and button styles
-- Add subtle animations and transitions for a modern feel
-
-### Week 6: Database Integration for Classes ✅
-- ✅ Set up PostgreSQL (or Supabase/PlanetScale) database
-- ✅ Integrate Prisma ORM for type-safe database access
-- ✅ Migrate mock class data to the database
-- ✅ Update API routes to fetch/store classes from the database
-- ✅ Add seed script for initial class data
-
-### Week 7: User Authentication ✅ COMPLETED
-- ✅ **NextAuth.js Integration**
-  - ✅ Install and configure NextAuth.js v5 with Prisma adapter
-  - ✅ Set up credentials provider for email/password authentication
-  - ✅ Configure JWT session strategy
-  - ✅ Add proper environment variables (NEXTAUTH_SECRET, NEXTAUTH_URL)
-
-- ✅ **Database Schema Updates**
-  - ✅ Add NextAuth.js required models: User, Account, Session, VerificationToken
-  - ✅ Update Review model to link with users
-  - ✅ Add password field to User model for credentials authentication
-  - ✅ Create and run database migrations
-
-- ✅ **Authentication Components**
-  - ✅ Create AuthModal component with signup/signin forms
-  - ✅ Update Header component with authentication button
-  - ✅ Add SessionProvider for client-side session management
-  - ✅ Implement white modal design with black button text
-
-- ✅ **API Routes**
-  - ✅ Create NextAuth.js API route handler
-  - ✅ Implement custom signup API endpoint
-  - ✅ Add user service with password hashing using bcrypt
-  - ✅ Handle authentication errors and validation
-
-- ✅ **Security & UX**
-  - ✅ Password hashing with bcrypt (12 rounds)
-  - ✅ Email uniqueness validation
-  - ✅ Auto signin after successful registration
-  - ✅ Proper error handling and user feedback
-  - ✅ Session management across page refreshes
-
-### Week 8: Build Footer Pages ✅
-- ✅ Create About Us, Contact, Terms of Service, Privacy Policy, and FAQ pages
-- ✅ Add content and basic styling for each page
-- ✅ Link footer navigation to these pages
-
-### Week 9: Individual Class Pages ✅
-- ✅ Create dynamic route for class detail pages (e.g., /class/[id])
-- ✅ Show full class info, map, reviews, and booking button
-- ✅ Add SEO meta tags for class pages
-- ✅ Link class cards to their detail pages
-
-### Week 10: User Features & Reviews System
-- **Reviews and Ratings System**
-  - Add reviews and ratings system for classes
-  - Allow authenticated users to leave reviews
-  - Display average rating and review list on class pages
-  - Add backend API for reviews
-
-- **Class Creation & Management**
-  - Create a class (for instructors/teachers)
-  - Class creation form with all required fields
-  - Instructor dashboard to manage their classes
-  - Edit class details functionality
-
-- **Class Booking System**
-  - Sign up for a class (for students/participants)
-  - Booking confirmation system
-  - User dashboard to view booked classes
-  - Booking history and status tracking
-
-- **Cancellation System**
-  - Cancel class as teacher (remove the class from the database)
-  - Cancel class reservation as student/participant
-  - Cancellation notifications and refund handling
-  - Update class availability when students cancel
-
-### Week 11: Class Photos
-- Allow class creators to upload photos
-- Store and display multiple images per class
-- Add image gallery to class detail pages
-- Optimize images for performance
-
-### Week 12: Additional Touches
-- Class Date 
-- Class Time 
-- Class Image 
-
-
-## Detailed Feature Breakdown
-
-### Header Component
-- Logo: "Cooking with Class" text (top left)
-- Search bar (top right) with real-time filtering
-- **Authentication button** (sign in/out with user info display) ✅
-- Responsive design for mobile
-- Next.js Link component for navigation
-
-### Class Listing
-- Grid layout of class cards
-- Each card shows: optimized image, title, location, price
-- Hover effects and click interactions
-- Responsive grid (3 columns on desktop, 2 on tablet, 1 on mobile)
-- Next.js Image component for performance
-
-### Class Modal
-- Detailed description
-- Instructor information
-- Class schedule
-- Booking button (placeholder for now)
-- Close functionality
-- Optimized images
-
-### Search Functionality
-- Real-time filtering by title, location, or cuisine type
-- Clear search option
-- No results state
-- Client-side filtering for immediate response
-
-### Authentication System ✅
-- **Sign Up**: Email, password, and optional name
-- **Sign In**: Email and password
-- **Sign Out**: Secure logout functionality
-- **Session Management**: Persistent login state
-- **Error Handling**: User-friendly error messages
-- **Security**: Password hashing and validation
-
-## Updated File Structure (Next.js App Router)
-app/
-├── page.tsx (homepage)
-├── layout.tsx (root layout)
-├── globals.css
-├── components/
-│   ├── Header/
-│   │   ├── Header.tsx ✅ (updated with auth)
-│   │   └── SearchBar.tsx
-│   ├── ClassCard/
-│   │   └── ClassCard.tsx
-│   ├── ClassModal/
-│   │   └── ClassModal.tsx
-│   ├── AuthModal/ ✅ NEW
-│   │   └── AuthModal.tsx
-│   ├── Providers/ ✅ NEW
-│   │   └── SessionProvider.tsx
-│   └── ui/
-│       └── Button.tsx
-├── api/
+### 1.2 Image Storage Strategy
+**Recommended Approach: Public Folder with Organized Structure**
+```
+public/
+├── images/
 │   ├── classes/
-│   │   └── route.ts
-│   └── auth/ ✅ NEW
-│       ├── [...nextauth]/
-│       │   └── route.ts
-│       └── signup/
-│           └── route.ts
-├── data/
-│   └── mockClasses.ts
-├── types/
-│   └── index.ts
-├── utils/
-│   └── searchUtils.ts
-├── lib/
-│   ├── prisma.ts
-│   └── auth.ts ✅ NEW
-├── services/ ✅ NEW
-│   └── user-service.ts
-└── public/
-    └── images/
-        └── classes/
-
-## Database Schema (Updated with Authentication)
-```sql
--- NextAuth.js Tables ✅
-CREATE TABLE "User" (
-  "id" TEXT NOT NULL,
-  "name" TEXT,
-  "email" TEXT,
-  "password" TEXT,
-  "emailVerified" TIMESTAMP(3),
-  "image" TEXT,
-  PRIMARY KEY ("id")
-);
-
-CREATE TABLE "Account" (
-  "id" TEXT NOT NULL,
-  "userId" TEXT NOT NULL,
-  "type" TEXT NOT NULL,
-  "provider" TEXT NOT NULL,
-  "providerAccountId" TEXT NOT NULL,
-  "refresh_token" TEXT,
-  "access_token" TEXT,
-  "expires_at" INTEGER,
-  "token_type" TEXT,
-  "scope" TEXT,
-  "id_token" TEXT,
-  "session_state" TEXT,
-  PRIMARY KEY ("id")
-);
-
-CREATE TABLE "Session" (
-  "id" TEXT NOT NULL,
-  "sessionToken" TEXT NOT NULL,
-  "userId" TEXT NOT NULL,
-  "expires" TIMESTAMP(3) NOT NULL,
-  PRIMARY KEY ("id")
-);
-
-CREATE TABLE "VerificationToken" (
-  "identifier" TEXT NOT NULL,
-  "token" TEXT NOT NULL,
-  "expires" TIMESTAMP(3) NOT NULL
-);
-
--- Classes table ✅
-CREATE TABLE "Class" (
-  "id" SERIAL PRIMARY KEY,
-  "title" VARCHAR(255) NOT NULL,
-  "description" TEXT,
-  "location" VARCHAR(255) NOT NULL,
-  "address" VARCHAR(255) NOT NULL,
-  "instructorName" VARCHAR(255) NOT NULL,
-  "duration" VARCHAR(100) NOT NULL,
-  "cuisineType" VARCHAR(100) NOT NULL,
-  "difficulty" VARCHAR(50) NOT NULL,
-  "rating" DECIMAL(3,2) NOT NULL,
-  "about" TEXT,
-  "menu" TEXT,
-  "schedule" TEXT,
-  "highlights" TEXT,
-  "additionalInformation" TEXT,
-  "maxStudents" INTEGER NOT NULL,
-  "price" DECIMAL(10,2) NOT NULL,
-  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Reviews table ✅ (updated with user relationship)
-CREATE TABLE "Review" (
-  "id" SERIAL PRIMARY KEY,
-  "classId" INTEGER NOT NULL,
-  "author" VARCHAR(255) NOT NULL,
-  "content" TEXT NOT NULL,
-  "rating" DECIMAL(3,2) NOT NULL,
-  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  "userId" TEXT,
-  FOREIGN KEY ("classId") REFERENCES "Class"("id"),
-  FOREIGN KEY ("userId") REFERENCES "User"("id")
-);
+│   │   ├── pasta-pandemonium.jpg
+│   │   ├── sushi-shenanigans.jpg
+│   │   └── ...
+│   ├── instructors/
+│   │   ├── giovanni-spaghetti.jpg
+│   │   ├── aiko-tanaka.jpg
+│   │   └── ...
+│   └── profiles/
+│       ├── user-1.jpg
+│       ├── user-2.jpg
+│       └── ...
 ```
 
-## Environment Variables Required ✅
-```env
-# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/cooking_with_class"
+**Image Naming Convention:**
+- Classes: `{slugified-title}.jpg` (e.g., `pasta-pandemonium.jpg`)
+- Instructors: `{slugified-name}.jpg` (e.g., `giovanni-spaghetti.jpg`)
+- User profiles: `user-{id}.jpg` or `{slugified-name}.jpg`
 
-# NextAuth.js
-NEXTAUTH_SECRET="your-secret-key-here"
-NEXTAUTH_URL="http://localhost:3000"
+## Phase 2: Database Migration
+
+### 2.1 Create Migration
+```bash
+npx prisma migrate dev --name add_class_images_and_instructor_profiles
 ```
+
+### 2.2 Update Seed Script
+- Create 10 instructor users with full profiles
+- Assign multiple classes to each instructor
+- Add image paths to classes and instructor profiles
+- Ensure proper relationships between instructors and classes
+
+## Phase 3: TypeScript Type Updates
+
+### 3.1 Update User Interface
+```typescript
+interface User {
+  // ... existing fields
+  profileImage?: string
+  yearsExperience?: number
+  awards: string[]
+  bio?: string
+  specialties: string[]
+  languages: string[]
+}
+```
+
+### 3.2 Update Class Interface
+```typescript
+interface Class {
+  // ... existing fields
+  image?: string
+}
+```
+
+## Phase 4: Component Updates
+
+### 4.1 Instructor Profile Components
+- Create `InstructorProfileCard` component
+- Create `InstructorProfileForm` for editing
+- Update `ClassCard` to show instructor profile image
+- Update `ClassDetailPage` to show instructor details
+
+### 4.2 Image Handling Components
+- Create `ImageUpload` component for profile pictures
+- Create `ClassImageUpload` component for class images
+- Add image display components with fallbacks
+
+## Phase 5: Service Layer Updates
+
+### 5.1 User Service
+- Add methods for updating instructor profiles
+- Add image upload handling
+- Add profile validation
+
+### 5.2 Class Service
+- Add image handling for classes
+- Update class creation/editing to include images
+
+## Phase 6: API Route Updates
+
+### 6.1 User Profile Routes
+- Add PUT route for updating instructor profiles
+- Add image upload endpoint
+- Add profile retrieval endpoints
+
+### 6.2 Class Routes
+- Update class creation/editing to handle images
+- Add image validation
+
+## Phase 7: Frontend Integration
+
+### 7.1 Dashboard Updates
+- Add instructor profile section
+- Add profile editing capabilities
+- Show instructor stats and classes
+
+### 7.2 Class Display Updates
+- Update class cards to show images
+- Update class detail pages to show instructor profiles
+- Add image galleries for classes
+
+## Phase 8: Seed Data Implementation
+
+### 8.1 Instructor Data Structure
+```typescript
+const instructors = [
+  {
+    name: "Giovanni Spaghetti",
+    email: "giovanni@cookingwithclass.com",
+    role: "INSTRUCTOR",
+    profileImage: "/images/instructors/giovanni-spaghetti.jpg",
+    yearsExperience: 15,
+    awards: ["Best Italian Chef 2023", "Michelin Star 2021"],
+    bio: "Master Italian chef with 15 years of experience...",
+    specialties: ["Italian", "Pasta", "Pizza", "Mediterranean"],
+    languages: ["English", "Italian", "French"],
+    classes: ["Pasta Pandemonium", "Pizza Perfection"]
+  },
+  // ... 9 more instructors
+]
+```
+
+### 8.2 Class Image Mapping
+```typescript
+const classImages = {
+  "Pasta Pandemonium": "/images/classes/pasta-pandemonium.jpg",
+  "Sushi Shenanigans": "/images/classes/sushi-shenanigans.jpg",
+  // ... all classes
+}
+```
+
+## Phase 9: Image Assets
+
+### 9.1 Required Images
+- 10 instructor profile images (professional headshots)
+- 50+ class images (food/cooking scenes)
+- Default placeholder images for missing content
+
+### 9.2 Image Specifications
+- Profile images: 400x400px, JPG format
+- Class images: 800x600px, JPG format
+- Optimize for web (compress, WebP conversion)
+- Alt text for accessibility
+
+## Phase 10: Testing & Validation
+
+### 10.1 Database Testing
+- Verify instructor profiles are created correctly
+- Test class-instructor relationships
+- Validate image paths
+
+### 10.2 Component Testing
+- Test image display with fallbacks
+- Test profile editing functionality
+- Test image upload (if implemented)
+
+## Implementation Order
+
+1. **Database Migration** - Update schema and run migration
+2. **Seed Script** - Create comprehensive seed data with images
+3. **Type Updates** - Update TypeScript interfaces
+4. **Component Creation** - Build new UI components
+5. **Service Updates** - Update backend services
+6. **API Integration** - Connect frontend to backend
+7. **Testing** - Validate all functionality
+8. **Image Assets** - Add actual images to public folder
+
+## Success Criteria
+
+- [ ] 10 instructor profiles with complete data
+- [ ] All classes have associated images
+- [ ] Instructor profiles display correctly on class pages
+- [ ] Profile editing works for instructors
+- [ ] Images load properly with fallbacks
+- [ ] Database relationships are correct
+- [ ] Seed script runs without errors
+- [ ] All components render without errors
+
+## Notes
+
+- Use placeholder images initially (e.g., Unsplash API or stock photos)
+- Implement proper image optimization and lazy loading
+- Consider implementing image upload functionality for production
+- Ensure all images have proper alt text for accessibility
+- Test on different screen sizes for responsive design

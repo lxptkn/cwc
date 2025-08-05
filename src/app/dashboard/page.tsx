@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import { getUserById } from '@/services/user-service'
 import UserDashboard from '@/components/Dashboard/UserDashboard'
 
 export default async function DashboardPage() {
@@ -9,5 +10,12 @@ export default async function DashboardPage() {
     redirect('/')
   }
 
-  return <UserDashboard user={session.user} />
+  // Fetch complete user data including profile image and other fields
+  const user = await getUserById(session.user.id)
+  
+  if (!user) {
+    redirect('/')
+  }
+
+  return <UserDashboard user={user} />
 } 

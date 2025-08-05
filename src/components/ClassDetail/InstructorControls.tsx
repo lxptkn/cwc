@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { CookingClass } from '@/types'
+import { Edit, Trash2 } from 'lucide-react'
 
 interface InstructorControlsProps {
   cookingClass: CookingClass
@@ -14,7 +15,6 @@ export default function InstructorControls({ cookingClass }: InstructorControlsP
   const { data: session } = useSession()
   const router = useRouter()
   const [isDeleting, setIsDeleting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   // Check if current user is the instructor of this class
   const isInstructor = session?.user?.id === cookingClass.instructorId
@@ -33,7 +33,6 @@ export default function InstructorControls({ cookingClass }: InstructorControlsP
     }
 
     setIsDeleting(true)
-    setError(null)
 
     try {
       const response = await fetch(`/api/classes/${cookingClass.id}`, {
@@ -48,41 +47,35 @@ export default function InstructorControls({ cookingClass }: InstructorControlsP
       // Redirect to dashboard after successful deletion
       router.push('/dashboard')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete class')
+      console.error('Error deleting class:', err)
+      alert('Failed to delete class')
     } finally {
       setIsDeleting(false)
     }
   }
 
   return (
-    <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border mb-6">
-      <h3 className="text-lg font-semibold text-warm-fg mb-4">Instructor Controls</h3>
-      
-      {error && (
-        <div className="text-red-500 text-sm bg-red-50 p-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-
-      <div className="flex space-x-3">
-        <Button
+    <div className="flex items-center gap-3">
+      <span className="text-sm text-black dark:text-white font-medium">Instructor Options:</span>
+      <div className="flex gap-2">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           onClick={handleEdit}
-          className="bg-warm-teal hover:bg-warm-teal/90 text-black px-4 py-2 rounded-lg"
         >
-          Edit Class
+          <Edit className="h-4 w-4" />
         </Button>
-        <Button
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer"
           onClick={handleDelete}
           disabled={isDeleting}
-          className="bg-warm-orange hover:bg-warm-orange/90 text-black px-4 py-2 rounded-lg"
         >
-          {isDeleting ? 'Deleting...' : 'Delete Class'}
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
-
-      <p className="text-sm text-warm-fg-muted mt-3">
-        As the instructor, you can edit or delete this class. Deleting will remove all bookings and reviews.
-      </p>
     </div>
   )
 } 

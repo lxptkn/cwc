@@ -9,13 +9,14 @@ export interface CookingClass {
   maxStudents: number;
   cuisineType: string;
   duration: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty: string;
   rating: number;
   about: string;
   menu: string;
   schedule: string;
   highlights: string;
   additionalInformation: string;
+  image?: string;
   instructorId: string;
   instructor?: User;
   reviews?: Review[];
@@ -26,10 +27,16 @@ export interface CookingClass {
 
 export interface User {
   id: string;
-  name?: string;
-  email?: string;
+  name: string | null;
+  email: string | null;
   role: UserRole;
-  image?: string;
+  image?: string | null;
+  profileImage?: string | null;
+  yearsExperience?: number | null;
+  awards: string[];
+  bio?: string | null;
+  specialties: string[];
+  languages: string[];
   createdAt: Date;
   updatedAt: Date;
   reviews?: Review[];
@@ -79,6 +86,7 @@ export interface CreateClassData {
   additionalInformation: string;
   maxStudents: number;
   price: number;
+  image?: string;
 }
 
 export interface CreateReviewData {

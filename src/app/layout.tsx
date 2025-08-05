@@ -37,6 +37,16 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: "Cooking with Class - Discover Amazing Cooking Classes Worldwide",
     description: "Find and book the best cooking classes in cities around the world. From Italian pasta making in Rome to sushi in Tokyo, discover culinary adventures with expert instructors.",

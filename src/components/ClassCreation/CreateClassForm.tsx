@@ -6,13 +6,19 @@ import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/Button'
 import { CreateClassData } from '@/types'
 import MainHeader from '../Header/MainHeader'
-import Footer from '@/components/ui/Footer';
+import Footer from '@/components/ui/Footer'
+import { Plus, X } from 'lucide-react'
 
 export default function CreateClassForm() {
   const { data: session } = useSession()
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  
+  // Dynamic fields state
+  const [dishes, setDishes] = useState<string[]>([''])
+  const [whatToBring, setWhatToBring] = useState<string[]>([''])
+  const [provided, setProvided] = useState<string[]>([''])
   
   const [formData, setFormData] = useState<CreateClassData>({
     title: '',
@@ -30,7 +36,10 @@ export default function CreateClassForm() {
     additionalInformation: '',
     maxStudents: 10,
     price: 0,
+    image: '',
   })
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -38,6 +47,84 @@ export default function CreateClassForm() {
       ...prev,
       [name]: name === 'maxStudents' || name === 'price' ? parseFloat(value) || 0 : value
     }))
+  }
+
+  // Dynamic field handlers
+  const addDish = () => {
+    setDishes([...dishes, ''])
+  }
+
+  const removeDish = (index: number) => {
+    if (dishes.length > 1) {
+      setDishes(dishes.filter((_, i) => i !== index))
+    }
+  }
+
+  const updateDish = (index: number, value: string) => {
+    const newDishes = [...dishes]
+    newDishes[index] = value
+    setDishes(newDishes)
+  }
+
+  const addWhatToBring = () => {
+    setWhatToBring([...whatToBring, ''])
+  }
+
+  const removeWhatToBring = (index: number) => {
+    if (whatToBring.length > 1) {
+      setWhatToBring(whatToBring.filter((_, i) => i !== index))
+    }
+  }
+
+  const updateWhatToBring = (index: number, value: string) => {
+    const newWhatToBring = [...whatToBring]
+    newWhatToBring[index] = value
+    setWhatToBring(newWhatToBring)
+  }
+
+  const addProvided = () => {
+    setProvided([...provided, ''])
+  }
+
+  const removeProvided = (index: number) => {
+    if (provided.length > 1) {
+      setProvided(provided.filter((_, i) => i !== index))
+    }
+  }
+
+  const updateProvided = (index: number, value: string) => {
+    const newProvided = [...provided]
+    newProvided[index] = value
+    setProvided(newProvided)
+  }
+
+  const handleImageUpload = async (file: File) => {
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to upload image')
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        image: data.url
+      }))
+
+      return data.url
+    } catch (error) {
+      console.error('Upload error:', error)
+      setError('Failed to upload image. Please try again.')
+      return null
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +136,7 @@ export default function CreateClassForm() {
     }
 
     // Basic validation
-    if (!formData.title.trim() || !formData.description.trim() || !formData.location.trim()) {
+    if (!formData.title.trim() || !formData.description.trim() || !formData.duration.trim() || formData.maxStudents <= 0 || formData.price <= 0) {
       setError('Please fill in all required fields')
       return
     }
@@ -68,12 +155,24 @@ export default function CreateClassForm() {
     setError(null)
 
     try {
+      // Combine dynamic fields into comma-separated strings
+      const menuString = dishes.filter(dish => dish.trim()).join(', ')
+      const highlightsString = whatToBring.filter(item => item.trim()).join(', ')
+      const additionalInfoString = provided.filter(item => item.trim()).join(', ')
+
+             const submitData = {
+         ...formData,
+         menu: menuString,
+         highlights: highlightsString,
+         additionalInformation: additionalInfoString
+       }
+
       const response = await fetch('/api/classes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       })
 
       const data = await response.json()
@@ -94,25 +193,87 @@ export default function CreateClassForm() {
   return (
     <div className="min-h-screen bg-warm-bg dark:bg-gray-800">
       <MainHeader />
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-warm-fg mb-2">Create a New Class</h1>
-          <p className="text-warm-fg-muted">
-            Share your culinary expertise with students
-          </p>
-        </div>
+             <div className="container mx-auto px-4 py-8">
+         {/* Header and Form Container */}
+         <div className="max-w-4xl mx-auto">
+           {/* Header */}
+           <div className="mb-8">
+             <h1 className="text-3xl font-bold text-warm-fg mb-2">Create a New Class</h1>
+             <p className="text-warm-fg-muted">
+               Share your culinary expertise with students
+             </p>
+           </div>
 
-        {/* Form */}
-        <div className="max-w-4xl mx-auto">
+           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Basic Information */}
-            <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border">
-              <h2 className="text-xl font-semibold text-warm-fg mb-4">Basic Information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         {/* Basic Information */}
+             <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border">
+               <h2 className="text-xl font-semibold text-warm-fg mb-4">Basic Information</h2>
+               
+                               {/* Class Image */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-warm-fg mb-2">
+                    Class Image
+                  </label>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-4">
+                      <input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0]
+                          if (file) {
+                            setSelectedImage(file)
+                            setError(null)
+                            
+                            // Create preview
+                            const reader = new FileReader()
+                            reader.onload = (e) => {
+                              setImagePreview(e.target?.result as string)
+                            }
+                            reader.readAsDataURL(file)
+                            
+                            // Upload the file
+                            const uploadedUrl = await handleImageUpload(file)
+                            if (!uploadedUrl) {
+                              setSelectedImage(null)
+                              setImagePreview('')
+                            }
+                          }
+                        }}
+                                                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-warm-orange file:text-black hover:file:bg-warm-orange/90 cursor-pointer"
+                      />
+                    </div>
+                    
+                    {/* Image Preview */}
+                    {imagePreview && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                        <div className="relative w-32 h-32 border border-gray-300 rounded-lg overflow-hidden">
+                          <img
+                            src={imagePreview}
+                            alt="Class preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        {formData.image && (
+                          <p className="text-xs text-green-600 mt-1">
+                            ✓ Image uploaded successfully
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Upload an image for your class (JPG, PNG, GIF up to 5MB)
+                  </p>
+                </div>
+               
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Class Title *
+                    Class Name *
                   </label>
                   <input
                     type="text"
@@ -127,22 +288,44 @@ export default function CreateClassForm() {
 
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Cuisine Type *
+                    Class Duration *
                   </label>
-                  <input
-                    type="text"
-                    name="cuisineType"
-                    value={formData.cuisineType}
+                  <select
+                    name="duration"
+                    value={formData.duration}
                     onChange={handleInputChange}
                     className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    placeholder="e.g., Italian, French, Asian"
                     required
-                  />
+                  >
+                    <option value="">Select duration</option>
+                    <option value="1 hour">1 hour</option>
+                    <option value="2 hours">2 hours</option>
+                    <option value="3 hours">3 hours</option>
+                    <option value="4 hours">4 hours</option>
+                    <option value="5 hours">5 hours</option>
+                  </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Difficulty Level *
+                    Max Students *
+                  </label>
+                  <select
+                    name="maxStudents"
+                    value={formData.maxStudents}
+                    onChange={handleInputChange}
+                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
+                    required
+                  >
+                    {Array.from({ length: 20 }, (_, i) => i + 1).map(num => (
+                      <option key={num} value={num}>{num} {num === 1 ? 'student' : 'students'}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-warm-fg mb-2">
+                    Difficulty *
                   </label>
                   <select
                     name="difficulty"
@@ -155,21 +338,6 @@ export default function CreateClassForm() {
                     <option value="Intermediate">Intermediate</option>
                     <option value="Advanced">Advanced</option>
                   </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Duration *
-                  </label>
-                  <input
-                    type="text"
-                    name="duration"
-                    value={formData.duration}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    placeholder="e.g., 2 hours"
-                    required
-                  />
                 </div>
 
                 <div>
@@ -188,47 +356,16 @@ export default function CreateClassForm() {
                     required
                   />
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Maximum Students *
-                  </label>
-                  <input
-                    type="number"
-                    name="maxStudents"
-                    value={formData.maxStudents}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    placeholder="10"
-                    min="1"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-warm-fg mb-2">
-                  Description *
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                  rows={4}
-                  placeholder="Describe what students will learn in this class..."
-                  required
-                />
               </div>
             </div>
 
             {/* Location Information */}
             <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border">
               <h2 className="text-xl font-semibold text-warm-fg mb-4">Location Information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Location *
+                    Location
                   </label>
                   <input
                     type="text"
@@ -236,14 +373,12 @@ export default function CreateClassForm() {
                     value={formData.location}
                     onChange={handleInputChange}
                     className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    placeholder="e.g., Downtown Kitchen Studio"
-                    required
+                    placeholder="e.g., Downtown Kitchen, Home Studio, Community Center"
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Full Address *
+                    Address
                   </label>
                   <input
                     type="text"
@@ -252,22 +387,6 @@ export default function CreateClassForm() {
                     onChange={handleInputChange}
                     className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
                     placeholder="123 Main St, City, State 12345"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Instructor Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="instructorName"
-                    value={formData.instructorName}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    placeholder="Your name or chef name"
-                    required
                   />
                 </div>
               </div>
@@ -276,76 +395,131 @@ export default function CreateClassForm() {
             {/* Class Details */}
             <div className="bg-warm-bg-alt rounded-lg p-6 border border-warm-border">
               <h2 className="text-xl font-semibold text-warm-fg mb-4">Class Details</h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    About the Instructor
+                    About This Class *
                   </label>
                   <textarea
-                    name="about"
-                    value={formData.about}
+                    name="description"
+                    value={formData.description}
                     onChange={handleInputChange}
                     className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    rows={3}
-                    placeholder="Tell students about your culinary background and expertise..."
+                    rows={4}
+                    placeholder="Describe what students will learn in this class..."
+                    required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    What You'll Cook
+                    Dishes
                   </label>
-                  <textarea
-                    name="menu"
-                    value={formData.menu}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    rows={3}
-                    placeholder="Describe the dishes or recipes students will learn to make..."
-                  />
+                  <div className="space-y-2">
+                    {dishes.map((dish, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={dish}
+                          onChange={(e) => updateDish(index, e.target.value)}
+                          className="flex-1 p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
+                          placeholder="e.g., Homemade pasta, Marinara sauce"
+                        />
+                                                 {dishes.length > 1 && (
+                           <button
+                             type="button"
+                             onClick={() => removeDish(index)}
+                             className="p-3 text-red-500 hover:text-red-700 cursor-pointer"
+                           >
+                             <X size={20} />
+                           </button>
+                         )}
+                      </div>
+                    ))}
+                                         <button
+                       type="button"
+                       onClick={addDish}
+                       className="flex items-center gap-2 text-warm-orange hover:text-warm-orange/80 cursor-pointer"
+                     >
+                       <Plus size={16} />
+                       Add another dish
+                     </button>
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Class Schedule
+                    What to Bring
                   </label>
-                  <textarea
-                    name="schedule"
-                    value={formData.schedule}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    rows={3}
-                    placeholder="When does this class typically run? (e.g., Every Saturday at 2 PM)"
-                  />
+                  <div className="space-y-2">
+                    {whatToBring.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => updateWhatToBring(index, e.target.value)}
+                          className="flex-1 p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
+                          placeholder="e.g., Apron, Comfortable shoes"
+                        />
+                                                 {whatToBring.length > 1 && (
+                           <button
+                             type="button"
+                             onClick={() => removeWhatToBring(index)}
+                             className="p-3 text-red-500 hover:text-red-700 cursor-pointer"
+                           >
+                             <X size={20} />
+                           </button>
+                         )}
+                      </div>
+                    ))}
+                                         <button
+                       type="button"
+                       onClick={addWhatToBring}
+                       className="flex items-center gap-2 text-warm-orange hover:text-warm-orange/80 cursor-pointer"
+                     >
+                       <Plus size={16} />
+                       Add another item
+                     </button>
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Class Highlights
+                    Provided
                   </label>
-                  <textarea
-                    name="highlights"
-                    value={formData.highlights}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    rows={3}
-                    placeholder="What makes this class special? Key learning points..."
-                  />
+                  <div className="space-y-2">
+                    {provided.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => updateProvided(index, e.target.value)}
+                          className="flex-1 p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
+                          placeholder="e.g., All ingredients, Cooking equipment"
+                        />
+                                                 {provided.length > 1 && (
+                           <button
+                             type="button"
+                             onClick={() => removeProvided(index)}
+                             className="p-3 text-red-500 hover:text-red-700 cursor-pointer"
+                           >
+                             <X size={20} />
+                           </button>
+                         )}
+                      </div>
+                    ))}
+                                         <button
+                       type="button"
+                       onClick={addProvided}
+                       className="flex items-center gap-2 text-warm-orange hover:text-warm-orange/80 cursor-pointer"
+                     >
+                       <Plus size={16} />
+                       Add another item
+                     </button>
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-warm-fg mb-2">
-                    Additional Information
-                  </label>
-                  <textarea
-                    name="additionalInformation"
-                    value={formData.additionalInformation}
-                    onChange={handleInputChange}
-                    className="w-full p-3 border border-warm-border rounded-lg focus:ring-2 focus:ring-warm-orange focus:border-transparent"
-                    rows={3}
-                    placeholder="Any other important details students should know..."
-                  />
-                </div>
+                
               </div>
             </div>
 
@@ -358,23 +532,22 @@ export default function CreateClassForm() {
 
             {/* Submit Button */}
             <div className="flex justify-end space-x-4">
-              <Button
-                type="button"
-                onClick={() => router.back()}
-                className="bg-warm-gray hover:bg-warm-gray/80 text-warm-fg px-6 py-3 rounded-lg"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-warm-orange hover:bg-warm-orange/90 text-black dark:text-white px-6 py-3 rounded-lg"
-              >
-                {isSubmitting ? 'Creating...' : 'Create Class'}
-              </Button>
+                             <Button
+                 type="button"
+                 onClick={() => router.back()}
+                 className="bg-warm-gray hover:bg-warm-gray/80 text-warm-fg px-6 py-3 rounded-lg cursor-pointer"
+               >
+                 Cancel
+               </Button>
+               <Button
+                 type="submit"
+                 disabled={isSubmitting}
+                 className="bg-warm-orange hover:bg-warm-orange/90 text-black dark:text-white px-6 py-3 rounded-lg cursor-pointer"
+               >
+                 {isSubmitting ? 'Creating...' : 'Create Class'}
+               </Button>
             </div>
           </form>
-          
         </div>
       </div>
       <Footer />

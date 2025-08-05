@@ -49,6 +49,15 @@ model User {
   emailVerified DateTime?
   image         String?
   role          UserRole  @default(STUDENT)
+  
+  // Instructor profile fields
+  profileImage  String?
+  yearsExperience Int?
+  awards        String[]
+  bio           String?
+  specialties   String[]
+  languages     String[]
+  
   accounts      Account[]
   sessions      Session[]
   reviews       Review[]
@@ -84,6 +93,7 @@ model Class {
   additionalInformation String
   maxStudents    Int
   price          Float
+  image           String?
   instructorId   String
   instructor     User      @relation("ClassInstructor", fields: [instructorId], references: [id])
   createdAt      DateTime @default(now())

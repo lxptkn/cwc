@@ -7,12 +7,15 @@ import BookingCard from './BookingCard'
 import ReviewsSection from './ReviewsSection'
 import InstructorControls from './InstructorControls'
 import { Badge } from "@/components/ui/badge"
-import { Clock, MapPin, Star, Users, ChefHat } from "lucide-react"
+import { Clock, MapPin, Star, Users, ChefHat, ShoppingBasket, Salad } from "lucide-react"
 import { Button } from '../ui/Button'
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import Footer from '@/components/ui/Footer';
 import BookingButton from './BookingButton'
+import Image from 'next/image'
+import { FALLBACK_IMAGES } from '@/utils/imageUtils'
+import { InstructorProfileCard } from '@/components/InstructorProfile/InstructorProfileCard'
 
 interface ClassDetailPageProps {
   cookingClass: CookingClass
@@ -24,37 +27,64 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
     ? cookingClass.menu.split(',').map((dish: string) => dish.trim())
     : [];
 
+  // Parse the highlights string into what to bring items
+  const whatToBring = cookingClass.highlights 
+    ? cookingClass.highlights.split(',').map((item: string) => item.trim())
+    : [];
+
+  // Parse the additional information string into provided items
+  const providedItems = cookingClass.additionalInformation 
+    ? cookingClass.additionalInformation.split('.').map((item: string) => item.trim()).filter(item => item && !item.includes('dietary restrictions'))
+    : [];
+
   return (
     <div className="min-h-screen bg-warm-bg dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6 ml-4">
-          <ol className="flex items-center space-x-2 text-sm text-warm-fg-muted">
-            <li>
-              <a href="/" className="hover:text-warm-orange transition-smooth">
-                Home
-              </a>
-            </li>
-            <li>/</li>
-            <li>
-              <a href="/#classes" className="hover:text-warm-orange transition-smooth">
-                Classes
-              </a>
-            </li>
-            <li>/</li>
-            <li className="text-warm-fg">{cookingClass.title}</li>
-          </ol>
-        </nav>
+        {/* Breadcrumb and Instructor Controls */}
+        <div className="flex items-center justify-between mb-6">
+          <nav className="ml-4">
+            <ol className="flex items-center space-x-2 text-sm text-warm-fg-muted">
+              <li>
+                <a href="/" className="hover:text-warm-orange transition-smooth">
+                  Home
+                </a>
+              </li>
+              <li>/</li>
+              <li>
+                <a href="/#classes" className="hover:text-warm-orange transition-smooth">
+                  Classes
+                </a>
+              </li>
+              <li>/</li>
+              <li className="text-warm-fg">{cookingClass.title}</li>
+            </ol>
+          </nav>
 
-        {/* Instructor Controls */}
-        <InstructorControls cookingClass={cookingClass} />
+          {/* Instructor Controls - Right Aligned */}
+          <InstructorControls cookingClass={cookingClass} />
+        </div>
 
         {/* Main Content */}
-        
-
         <main className="flex-1">
           <section className="py-8">
             <div className="container mx-auto px-4">
+              {/* Class Image */}
+              <div className="mb-8">
+                <div className="relative h-96 w-full rounded-lg overflow-hidden">
+                  <Image
+                    src={cookingClass.image || FALLBACK_IMAGES.class}
+                    alt={`${cookingClass.title} class`}
+                    width={800}
+                    height={600}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = FALLBACK_IMAGES.class
+                    }}
+                  />
+                </div>
+              </div>
+
               <div className="grid gap-8 lg:grid-cols-3">
                 <div className="lg:col-span-2">
                   <div className="flex items-center gap-2 mb-4">
@@ -103,24 +133,30 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
                   </div>
 
                   <div className="mb-8">
-                  <h2 className="font-serif text-2xl font-bold mb-4">Additional Information</h2>
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-semibold mb-2">What to Bring</h3>
-                      <p className="text-warm-fg leading-relaxed">{cookingClass.highlights}</p>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">What is Included</h3>
-                      <p className="text-warm-fg leading-relaxed">{cookingClass.additionalInformation}</p>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Dietary Accommodations</h3>
-                      <p className="text-gray-600">
-                      We can accommodate most dietary restrictions with advance notice. Please contact us when booking to discuss your needs.
-                      </p>
+                    <h2 className="font-serif text-2xl font-bold mb-4">What to Bring</h2>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {whatToBring.map((item: string, index: number) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <ShoppingBasket className="h-4 w-4 text-gray-400" />
+                          <span className="text-gray-600">{item}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </div>
+
+                  <div className="mb-8">
+                    <h2 className="font-serif text-2xl font-bold mb-4">What is Included</h2>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {providedItems.map((item: string, index: number) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <Salad className="h-4 w-4 text-gray-400" />
+                          <span className="text-gray-600">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+
                   {/* Reviews Section */}
                   <div className="mb-8">
                     <ReviewsSection cookingClass={cookingClass} />
@@ -187,52 +223,14 @@ export default function ClassDetailPage({ cookingClass }: ClassDetailPageProps) 
       </div>
 
       {/* Instructor Section */}
-      <section className="bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="font-serif text-3xl font-bold mb-8">Meet Your Instructor</h2>
-          <div className="flex flex-col gap-6 md:flex-row">
-            <div className="relative h-64 w-full md:h-80 md:w-80 flex-shrink-0">
-              <img
-                src="/placeholder.svg?height=320&width=320"
-                alt="Chef Kenji Tanaka"
-                className="rounded-lg object-cover w-full h-full"
-              />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-serif text-2xl font-bold mb-2">Chef Kenji Tanaka</h3>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <Badge variant="secondary">18+ Years Experience</Badge>
-                <Badge variant="secondary">Michelin Star Experience</Badge>
-                <Badge variant="secondary">Fusion Pioneer</Badge>
-              </div>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Chef Kenji brings a unique perspective to Asian fusion, having trained in traditional Japanese cuisine
-                before working in innovative kitchens across Asia and America. His approach respects traditional
-                techniques while embracing creative fusion possibilities.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Known for his ability to explain complex flavor profiles and techniques in simple terms, Kenji helps
-                students understand not just how to cook Asian fusion, but why certain combinations work and how to
-                create their own innovative dishes.
-              </p>
-              <div className="space-y-2">
-                <div>
-                  <span className="font-semibold">Specialties:</span>
-                  <span className="text-gray-600 ml-2">Japanese, Korean, Thai Fusion, Modern Asian Techniques</span>
-                </div>
-                <div>
-                  <span className="font-semibold">Languages:</span>
-                  <span className="text-gray-600 ml-2">English, Japanese, Korean</span>
-                </div>
-                <div>
-                  <span className="font-semibold">Teaching Since:</span>
-                  <span className="text-gray-600 ml-2">2018</span>
-                </div>
-              </div>
-            </div>
+      {cookingClass.instructor && (
+        <section className="bg-gray-50 py-12">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="font-serif text-3xl font-bold mb-8">Meet Your Instructor</h2>
+            <InstructorProfileCard instructor={cookingClass.instructor} showFullProfile={true} />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       <Footer />
     </div>
   )
