@@ -5,19 +5,20 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id } = await params
+    const classId = parseInt(id)
     
-    if (isNaN(id)) {
+    if (isNaN(classId)) {
       return NextResponse.json(
         { error: 'Invalid class ID' },
         { status: 400 }
       )
     }
 
-    console.log(`Debug: Attempting to fetch class with ID: ${id}`)
+    console.log(`Debug: Attempting to fetch class with ID: ${classId}`)
     
     // Get session info
     const session = await auth()
@@ -29,20 +30,20 @@ export async function GET(
     
     // Try direct Prisma query first
     const directClass = await prisma.class.findUnique({
-      where: { id },
+      where: { id: classId },
       include: { instructor: true }
     })
     console.log(`Debug: Direct Prisma query result:`, directClass)
     
     // Try service function
-    const cookingClass = await getClassById(id)
+    const cookingClass = await getClassById(classId)
     console.log(`Debug: Service function result:`, cookingClass)
     
     if (!cookingClass) {
       return NextResponse.json(
         { 
           error: 'Class not found', 
-          id,
+          id: classId,
           session: {
             hasSession: !!session,
             userId: session?.user?.id
@@ -64,7 +65,7 @@ export async function GET(
     return NextResponse.json({ 
       success: true, 
       class: cookingClass,
-      id: id,
+      id: classId,
       session: {
         hasSession: !!session,
         userId: session?.user?.id,

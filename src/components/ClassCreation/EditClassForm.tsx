@@ -48,6 +48,14 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
   // Initialize form data with existing class data
   useEffect(() => {
     if (cookingClass) {
+      // Helper function to validate difficulty
+      const validateDifficulty = (diff: string): 'Beginner' | 'Intermediate' | 'Advanced' => {
+        if (diff === 'Beginner' || diff === 'Intermediate' || diff === 'Advanced') {
+          return diff
+        }
+        return 'Beginner'
+      }
+
       setFormData({
         title: cookingClass.title || '',
         description: cookingClass.description || '',
@@ -56,7 +64,7 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
         instructorName: cookingClass.instructorName || '',
         duration: cookingClass.duration || '',
         cuisineType: cookingClass.cuisineType || '',
-        difficulty: cookingClass.difficulty || 'Beginner',
+        difficulty: validateDifficulty(cookingClass.difficulty),
         about: cookingClass.about || '',
         menu: cookingClass.menu || '',
         schedule: cookingClass.schedule || '',

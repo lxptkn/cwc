@@ -4,9 +4,9 @@ import { getClassById } from '@/services/class-service'
 import EditClassForm from '@/components/ClassCreation/EditClassForm'
 
 interface EditClassPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function EditClassPage({ params }: EditClassPageProps) {
@@ -17,7 +17,8 @@ export default async function EditClassPage({ params }: EditClassPageProps) {
   }
 
   try {
-    const classId = parseInt(params.id)
+    const { id } = await params
+    const classId = parseInt(id)
     
     if (isNaN(classId)) {
       notFound()

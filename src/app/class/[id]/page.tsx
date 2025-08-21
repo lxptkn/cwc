@@ -5,14 +5,15 @@ import ClassDetailPage from '@/components/ClassDetail/ClassDetailPage'
 import MainHeader from '@/components/Header/MainHeader'
 
 interface ClassPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: ClassPageProps): Promise<Metadata> {
   try {
-    const cookingClass = await getClassById(parseInt(params.id))
+    const { id } = await params
+    const cookingClass = await getClassById(parseInt(id))
     
     if (!cookingClass) {
       return {
@@ -47,7 +48,8 @@ export async function generateMetadata({ params }: ClassPageProps): Promise<Meta
 
 export default async function ClassPage({ params }: ClassPageProps) {
   try {
-    const classId = parseInt(params.id)
+    const { id } = await params
+    const classId = parseInt(id)
     
     if (isNaN(classId)) {
       notFound()

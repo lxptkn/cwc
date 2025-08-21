@@ -4,10 +4,11 @@ import { cancelBooking } from '@/services/booking-service'
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
+    const { id } = await params
     
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -16,7 +17,7 @@ export async function DELETE(
       )
     }
 
-    const bookingId = parseInt(params.id)
+    const bookingId = parseInt(id)
     
     if (isNaN(bookingId)) {
       return NextResponse.json(

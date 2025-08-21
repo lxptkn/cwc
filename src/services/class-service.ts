@@ -1,5 +1,45 @@
 import { prisma } from '@/lib/prisma'
-import { CreateClassData } from '@/types'
+import { CreateClassData, CookingClass } from '@/types'
+
+// Utility function to transform Prisma data to match our interface
+function transformPrismaClass(prismaClass: any): CookingClass {
+  return {
+    ...prismaClass,
+    instructor: prismaClass.instructor ? {
+      ...prismaClass.instructor,
+      name: prismaClass.instructor.name || undefined,
+      email: prismaClass.instructor.email || undefined,
+      image: prismaClass.instructor.image || undefined,
+      profileImage: prismaClass.instructor.profileImage || undefined,
+      yearsExperience: prismaClass.instructor.yearsExperience || undefined,
+      bio: prismaClass.instructor.bio || undefined,
+    } : undefined,
+    reviews: prismaClass.reviews?.map((review: any) => ({
+      ...review,
+      user: review.user ? {
+        ...review.user,
+        name: review.user.name || undefined,
+        email: review.user.email || undefined,
+        image: review.user.image || undefined,
+        profileImage: review.user.profileImage || undefined,
+        yearsExperience: review.user.yearsExperience || undefined,
+        bio: review.user.bio || undefined,
+      } : undefined,
+    })) || [],
+    bookings: prismaClass.bookings?.map((booking: any) => ({
+      ...booking,
+      user: booking.user ? {
+        ...booking.user,
+        name: booking.user.name || undefined,
+        email: booking.user.email || undefined,
+        image: booking.user.image || undefined,
+        profileImage: booking.user.profileImage || undefined,
+        yearsExperience: booking.user.yearsExperience || undefined,
+        bio: booking.user.bio || undefined,
+      } : undefined,
+    })) || [],
+  }
+}
 
 export async function getAllClasses() {
   try {
@@ -36,7 +76,12 @@ export async function getClassById(id: number) {
         },
       },
     })
-    return cookingClass
+    
+    if (!cookingClass) {
+      return null
+    }
+    
+    return transformPrismaClass(cookingClass)
   } catch (error) {
     console.error('Error fetching class by ID:', error)
     return null

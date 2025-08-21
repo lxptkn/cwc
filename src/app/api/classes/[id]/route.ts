@@ -5,19 +5,20 @@ import { CreateClassData } from '@/types'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id } = await params
+    const classId = parseInt(id)
     
-    if (isNaN(id)) {
+    if (isNaN(classId)) {
       return NextResponse.json(
         { error: 'Invalid class ID' },
         { status: 400 }
       )
     }
 
-    const cookingClass = await getClassById(id)
+    const cookingClass = await getClassById(classId)
     
     if (!cookingClass) {
       return NextResponse.json(
@@ -38,10 +39,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
+    const { id } = await params
     
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -50,9 +52,9 @@ export async function PUT(
       )
     }
 
-    const id = parseInt(params.id)
+    const classId = parseInt(id)
     
-    if (isNaN(id)) {
+    if (isNaN(classId)) {
       return NextResponse.json(
         { error: 'Invalid class ID' },
         { status: 400 }
@@ -61,7 +63,7 @@ export async function PUT(
 
     const classData: Partial<CreateClassData> = await request.json()
     
-    const result = await updateClass(id, classData, session.user.id)
+    const result = await updateClass(classId, classData, session.user.id)
     
     return NextResponse.json(result)
   } catch (error) {
@@ -75,10 +77,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
+    const { id } = await params
     
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -87,16 +90,16 @@ export async function DELETE(
       )
     }
 
-    const id = parseInt(params.id)
+    const classId = parseInt(id)
     
-    if (isNaN(id)) {
+    if (isNaN(classId)) {
       return NextResponse.json(
         { error: 'Invalid class ID' },
         { status: 400 }
       )
     }
 
-    const result = await deleteClass(id, session.user.id)
+    const result = await deleteClass(classId, session.user.id)
     
     return NextResponse.json(result)
   } catch (error) {

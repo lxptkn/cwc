@@ -9,7 +9,7 @@ export interface CookingClass {
   maxStudents: number;
   cuisineType: string;
   duration: string;
-  difficulty: string;
+  difficulty: string; // Changed from union type to string to match database
   rating: number;
   about: string;
   menu: string;
