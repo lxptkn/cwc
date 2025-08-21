@@ -26,9 +26,12 @@ Set these in your Vercel project dashboard:
 # Database
 DATABASE_URL=postgresql://username:password@host:port/database_name
 
-# NextAuth
+# NextAuth Configuration
 NEXTAUTH_SECRET=your-super-secret-key-here
 NEXTAUTH_URL=https://your-domain.vercel.app
+
+# Database Seeding (Production)
+ALLOW_PRODUCTION_SEEDING=false
 
 # Optional: Google Maps API
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-api-key
@@ -36,6 +39,47 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-api-key
 # Optional: Upload Secret
 UPLOAD_SECRET=your-upload-secret
 ```
+
+### **🔐 NextAuth Secret Generation**
+
+Generate a secure secret using our script:
+
+```bash
+# Run locally
+node scripts/generate-secret.js
+
+# Copy the generated secret to Vercel environment variables
+```
+
+### **🌐 NextAuth URL Configuration**
+
+**Important**: Set `NEXTAUTH_URL` to your exact Vercel domain:
+- ✅ `https://your-app.vercel.app`
+- ❌ `http://localhost:3000`
+- ❌ `https://yourdomain.com` (unless you have a custom domain)
+
+## NextAuth.js + Vercel Integration
+
+### **✅ What Works Automatically:**
+- **JWT Strategy**: No database sessions needed
+- **API Routes**: `/api/auth/[...nextauth]` becomes a serverless function
+- **User Management**: Stored in your Supabase database
+- **Authentication Flow**: Email/password with bcrypt hashing
+
+### **🔧 Production Optimizations Added:**
+- **Secure Cookies**: `__Secure-` prefix in production
+- **HTTPS Enforcement**: Secure cookies on production
+- **Session Management**: 30-day session expiry
+- **Error Handling**: Dedicated error page
+- **Role-based Access**: User roles in JWT tokens
+
+### **🚀 Authentication Flow:**
+1. User signs up with email/password
+2. Password is hashed with bcrypt
+3. User logs in with credentials
+4. NextAuth creates JWT token
+5. Token stored in secure HTTP-only cookie
+6. User stays logged in across sessions
 
 ## Step 3: Deploy to Vercel
 
@@ -65,10 +109,49 @@ UPLOAD_SECRET=your-upload-secret
    npx prisma migrate deploy
    ```
 
-2. **Verify Deployment**:
+2. **Seed Production Database** (Optional):
+   
+   **Option A: Via Vercel Build Hook**
+   - Set `ALLOW_PRODUCTION_SEEDING=true` in Vercel environment variables
+   - The seed script will run automatically after each deployment
+   
+   **Option B: Manual Seeding**
+   ```bash
+   # Via Vercel CLI
+   vercel run scripts/seed-production.js
+   
+   # Or directly
+   npx ts-node prisma/seed.ts
+   ```
+   
+   **Option C: GitHub Actions**
+   - Create a workflow that runs after deployment
+   - Use the seed script in your CI/CD pipeline
+
+3. **Verify Deployment**:
    - Check your domain
    - Test authentication
    - Verify database connections
+   - Confirm seeded data is visible
+
+## Database Seeding Strategy
+
+### **What Gets Seeded:**
+- ✅ 5 instructor profiles with full details
+- ✅ Sample cooking classes with images
+- ✅ Proper relationships between instructors and classes
+- ✅ All images from your `public/images/` folder
+
+### **Safety Features:**
+- 🔒 Only seeds if `ALLOW_PRODUCTION_SEEDING=true`
+- 🔒 Checks if data already exists (won't duplicate)
+- 🔒 Production environment validation
+- 🔒 Comprehensive error handling
+
+### **Images and Assets:**
+- 🖼️ All images in `public/images/` are automatically deployed
+- 🖼️ SVG class images and instructor profile images included
+- 🖼️ No additional upload needed - images are part of your codebase
 
 ## Troubleshooting
 
