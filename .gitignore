@@ -98,3 +98,4 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.temp
+.env*.local
