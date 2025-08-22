@@ -44,6 +44,7 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
   })
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
+  const [uploadError, setUploadError] = useState<string | null>(null)
 
   // Initialize form data with existing class data
   useEffect(() => {
@@ -157,6 +158,22 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
 
   const handleImageUpload = async (file: File) => {
     try {
+      // Clear previous upload errors
+      setUploadError(null)
+      
+      // Validate file size before upload
+      if (file.size > 5 * 1024 * 1024) {
+        setUploadError('File size must be less than 5MB. Please choose a smaller image.')
+        return null
+      }
+
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
+      if (!allowedTypes.includes(file.type.toLowerCase())) {
+        setUploadError('Only JPG, PNG, GIF, and WebP image files are allowed.')
+        return null
+      }
+
       const formData = new FormData()
       formData.append('file', file)
 
@@ -168,7 +185,21 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to upload image')
+        // Provide specific error messages based on the API response
+        let errorMessage = 'Failed to upload image. '
+        if (data.error) {
+          if (data.error.includes('5MB')) {
+            errorMessage += 'File size must be less than 5MB.'
+          } else if (data.error.includes('image files')) {
+            errorMessage += 'Only JPG, PNG, GIF, and WebP files are allowed.'
+          } else {
+            errorMessage += data.error
+          }
+        } else {
+          errorMessage += 'Please try again.'
+        }
+        setUploadError(errorMessage)
+        return null
       }
 
       setFormData(prev => ({
@@ -179,7 +210,7 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
       return data.url
     } catch (error) {
       console.error('Upload error:', error)
-      setError('Failed to upload image. Please try again.')
+      setUploadError('Network error occurred. Please check your connection and try again.')
       return null
     }
   }
@@ -283,6 +314,7 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
                         if (file) {
                           setSelectedImage(file)
                           setError(null)
+                          setUploadError(null)
                           
                           // Create preview
                           const reader = new FileReader()
@@ -321,9 +353,20 @@ export default function EditClassForm({ cookingClass }: EditClassFormProps) {
                       )}
                     </div>
                   )}
+
+                  {/* Upload Error Display */}
+                  {uploadError && (
+                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                      <p className="text-sm text-red-700 font-medium">Upload Failed</p>
+                      <p className="text-xs text-red-600 mt-1">{uploadError}</p>
+                      <p className="text-xs text-red-500 mt-2">
+                        Supported formats: JPG, PNG, GIF, WebP (max 5MB)
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Upload an image for your class (JPG, PNG, GIF up to 5MB)
+                  Upload an image for your class (JPG, PNG, GIF, WebP up to 5MB)
                 </p>
               </div>
               

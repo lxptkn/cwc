@@ -83,14 +83,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white border border-gray-200 rounded-block p-6 w-full max-w-md mx-4 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-block p-6 w-full max-w-md mx-4 shadow-lg">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-n64 text-gray-900">
+          <h2 className="text-2xl font-n64 text-gray-900 dark:text-white">
             {isSignUp ? "Sign Up" : "Sign In"}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100"
           >
             ✕
           </button>
@@ -99,7 +99,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           {isSignUp && (
             <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">
+              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
                 Name
               </label>
               <input
@@ -107,14 +107,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-block text-gray-900 focus:outline-none focus:border-warm-orange focus:bg-white"
+                className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-block text-gray-900 dark:text-white focus:outline-none focus:border-warm-orange focus:bg-white dark:focus:bg-gray-600"
                 placeholder="Your name"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-2">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
               Email
             </label>
             <input
@@ -123,13 +123,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-block text-gray-900 focus:outline-none focus:border-warm-orange focus:bg-white"
+              className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-block text-gray-900 dark:text-white focus:outline-none focus:border-warm-orange focus:bg-white dark:focus:bg-gray-600"
               placeholder="your@email.com"
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-medium mb-2">
+            <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
               Password
             </label>
             <input
@@ -138,13 +138,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               value={formData.password}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-block text-gray-900 focus:outline-none focus:border-warm-orange focus:bg-white"
+              className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-block text-gray-900 dark:text-white focus:outline-none focus:border-warm-orange focus:bg-white dark:focus:bg-gray-600"
               placeholder="••••••••"
             />
           </div>
 
           {error && (
-            <div className="text-red-600 text-sm">{error}</div>
+            <div className="text-red-600 dark:text-red-400 text-sm">{error}</div>
           )}
 
           <Button
@@ -159,7 +159,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <div className="mt-4 text-center">
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-warm-orange hover:text-warm-orange-light text-sm"
+            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium underline underline-offset-2 transition-colors"
           >
             {isSignUp ? "Already have an account? Sign In" : "Need an account? Sign Up"}
           </button>
