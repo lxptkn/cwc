@@ -184,7 +184,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, wine pairing included",
         maxStudents: 12,
         price: 75,
-        image: "/images/classes/pasta-pandemonium.svg",
+        image: "/classes/class-1.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "giovanni@cookingwithclass.com" } }))!.id
       },
       {
@@ -204,7 +204,7 @@ async function main() {
         additionalInformation: "Fish alternatives available, sake tasting included",
         maxStudents: 10,
         price: 120,
-        image: "/images/classes/sushi-shenanigans.svg",
+        image: "/classes/class-2.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "aiko@cookingwithclass.com" } }))!.id
       },
       {
@@ -224,7 +224,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, tequila tasting included",
         maxStudents: 15,
         price: 65,
-        image: "/images/classes/taco-tango.svg",
+        image: "/classes/class-3.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "carlos@cookingwithclass.com" } }))!.id
       },
       {
@@ -244,7 +244,7 @@ async function main() {
         additionalInformation: "Gluten-free options available, French wine pairing",
         maxStudents: 8,
         price: 95,
-        image: "/images/classes/croissant-capers.svg",
+        image: "/classes/class-4.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "marie@cookingwithclass.com" } }))!.id
       },
       {
@@ -264,7 +264,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, traditional tea ceremony",
         maxStudents: 12,
         price: 85,
-        image: "/images/classes/chinese-dumpling-masterclass.svg",
+        image: "/classes/class-5.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "liwei@cookingwithclass.com" } }))!.id
       },
       {
@@ -284,7 +284,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, Polish beer tasting",
         maxStudents: 14,
         price: 70,
-        image: "/images/classes/pierogi-party.svg",
+        image: "/classes/class-6.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "kasia@cookingwithclass.com" } }))!.id
       },
       {
@@ -304,7 +304,7 @@ async function main() {
         additionalInformation: "Seafood alternatives available, sangria making included",
         maxStudents: 16,
         price: 80,
-        image: "/images/classes/tapas-tickle.svg",
+        image: "/classes/class-7.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "miguel@cookingwithclass.com" } }))!.id
       },
       {
@@ -324,7 +324,7 @@ async function main() {
         additionalInformation: "Vegetarian pho available, Vietnamese coffee tasting",
         maxStudents: 12,
         price: 75,
-        image: "/images/classes/pho-nomenal-fun.svg",
+        image: "/classes/class-8.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "nguyen@cookingwithclass.com" } }))!.id
       },
       {
@@ -344,7 +344,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, chai making included",
         maxStudents: 10,
         price: 90,
-        image: "/images/classes/curry-carnival.svg",
+        image: "/classes/class-9.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "priya@cookingwithclass.com" } }))!.id
       },
       {
@@ -364,7 +364,7 @@ async function main() {
         additionalInformation: "Vegan options available, traditional coffee service",
         maxStudents: 12,
         price: 75,
-        image: "/images/classes/bagel-bonanza.svg",
+        image: "/classes/class-10.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "rachel@cookingwithclass.com" } }))!.id
       },
       {
@@ -384,7 +384,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, Italian wine pairing",
         maxStudents: 14,
         price: 85,
-        image: "/images/classes/pizza-perfection.svg",
+        image: "/classes/class-11.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "giovanni@cookingwithclass.com" } }))!.id
       },
       {
@@ -404,7 +404,7 @@ async function main() {
         additionalInformation: "Vegetarian ramen available, sake pairing included",
         maxStudents: 8,
         price: 110,
-        image: "/images/classes/ramen-revolution.svg",
+        image: "/classes/class-12.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "aiko@cookingwithclass.com" } }))!.id
       },
       {
@@ -424,7 +424,7 @@ async function main() {
         additionalInformation: "Vegetarian options available, wine pairing included",
         maxStudents: 10,
         price: 95,
-        image: "/images/classes/french-bistro-basics.svg",
+        image: "/classes/class-13.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "marie@cookingwithclass.com" } }))!.id
       },
       {
@@ -444,8 +444,148 @@ async function main() {
         additionalInformation: "Vegetarian options available, Mexican hot chocolate making",
         maxStudents: 16,
         price: 60,
-        image: "/images/classes/mexican-street-food.svg",
+        image: "/classes/class-14.png",
         instructorId: (await prisma.user.findFirst({ where: { email: "carlos@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Dim Sum Delights",
+        description: "Master the art of traditional Chinese dim sum with expert techniques and authentic flavors.",
+        location: "Hong Kong, China",
+        address: "1 Nathan Road, Tsim Sha Tsui, Hong Kong",
+        instructorName: "Li Wei",
+        duration: "3h",
+        cuisineType: "Chinese",
+        difficulty: "Advanced",
+        rating: 4.9,
+        about: "Learn to create perfect dim sum with traditional fillings and professional folding techniques.",
+        menu: "Har gow, siu mai, char siu bao, jasmine tea",
+        schedule: "Every Sunday at 10:00 AM",
+        highlights: "Dim sum tools, recipe guide, take-home dumplings",
+        additionalInformation: "Vegetarian options available, traditional tea service",
+        maxStudents: 8,
+        price: 100,
+        image: "/classes/class-15.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "liwei@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Polish Comfort Classics",
+        description: "Discover the heartwarming world of Polish comfort food with traditional recipes and techniques.",
+        location: "Krakow, Poland",
+        address: "Rynek Główny 1, 31-042 Kraków, Poland",
+        instructorName: "Kasia Nowak",
+        duration: "2.5h",
+        cuisineType: "Polish",
+        difficulty: "Intermediate",
+        rating: 4.7,
+        about: "Learn to create authentic Polish comfort dishes with traditional techniques and family recipes.",
+        menu: "Bigos, kotlet schabowy, mashed potatoes, Polish beer",
+        schedule: "Every Friday at 6:00 PM",
+        highlights: "Cooking tools, recipe book, traditional beer",
+        additionalInformation: "Vegetarian options available, Polish beer tasting",
+        maxStudents: 12,
+        price: 75,
+        image: "/classes/class-16.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "kasia@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Spanish Paella Masterclass",
+        description: "Master the art of authentic Spanish paella with traditional techniques and fresh ingredients.",
+        location: "Valencia, Spain",
+        address: "Plaza de la Virgen, 46001 Valencia, Spain",
+        instructorName: "Miguel Torres",
+        duration: "3h",
+        cuisineType: "Spanish",
+        difficulty: "Advanced",
+        rating: 4.9,
+        about: "Learn to create perfect paella with traditional rice techniques and authentic Spanish flavors.",
+        menu: "Seafood paella, sangria, Spanish bread, flan",
+        schedule: "Every Saturday at 5:00 PM",
+        highlights: "Paella pan, recipe guide, Spanish wine",
+        additionalInformation: "Seafood alternatives available, sangria making included",
+        maxStudents: 10,
+        price: 95,
+        image: "/classes/class-17.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "miguel@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Vietnamese Banh Mi Workshop",
+        description: "Create the perfect Vietnamese banh mi sandwich with fresh ingredients and authentic techniques.",
+        location: "Hanoi, Vietnam",
+        address: "36 Hàng Bông, Hoàn Kiếm, Hà Nội, Vietnam",
+        instructorName: "Nguyen Minh",
+        duration: "2h",
+        cuisineType: "Vietnamese",
+        difficulty: "Beginner",
+        rating: 4.6,
+        about: "Learn to make authentic Vietnamese banh mi with fresh bread and traditional fillings.",
+        menu: "Banh mi thit nuong, fresh herbs, pickled vegetables, Vietnamese coffee",
+        schedule: "Every Saturday at 11:00 AM",
+        highlights: "Bread making tools, recipe cards, fresh herbs",
+        additionalInformation: "Vegetarian options available, Vietnamese coffee tasting",
+        maxStudents: 14,
+        price: 65,
+        image: "/classes/class-18.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "nguyen@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Indian Bread Making",
+        description: "Master the art of traditional Indian breads with expert techniques and authentic recipes.",
+        location: "Delhi, India",
+        address: "Connaught Place, New Delhi, Delhi 110001, India",
+        instructorName: "Priya Singh",
+        duration: "2.5h",
+        cuisineType: "Indian",
+        difficulty: "Intermediate",
+        rating: 4.8,
+        about: "Learn to create perfect Indian breads including naan, roti, and paratha with traditional techniques.",
+        menu: "Naan bread, roti, paratha, curry, masala chai",
+        schedule: "Every Sunday at 3:00 PM",
+        highlights: "Bread making tools, recipe book, spice kit",
+        additionalInformation: "Vegetarian options available, chai making included",
+        maxStudents: 12,
+        price: 80,
+        image: "/classes/class-19.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "priya@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Jewish Holiday Baking",
+        description: "Celebrate Jewish traditions with authentic holiday baking techniques and family recipes.",
+        location: "Jerusalem, Israel",
+        address: "Western Wall Plaza, Jerusalem, Israel",
+        instructorName: "Rachel Goldstein",
+        duration: "3h",
+        cuisineType: "Jewish",
+        difficulty: "Intermediate",
+        rating: 4.8,
+        about: "Learn to create traditional Jewish holiday treats with authentic techniques and family recipes.",
+        menu: "Challah bread, rugelach, hamantaschen, traditional tea",
+        schedule: "Every Sunday at 2:00 PM",
+        highlights: "Baking tools, recipe book, traditional ingredients",
+        additionalInformation: "Vegan options available, traditional tea service",
+        maxStudents: 10,
+        price: 85,
+        image: "/classes/class-20.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "rachel@cookingwithclass.com" } }))!.id
+      },
+      {
+        title: "Italian Wine & Cheese Pairing",
+        description: "Discover the perfect harmony of Italian wines and artisanal cheeses in this sophisticated tasting class.",
+        location: "Florence, Italy",
+        address: "Piazza della Signoria, 50122 Firenze FI, Italy",
+        instructorName: "Giovanni Spaghetti",
+        duration: "2h",
+        cuisineType: "Italian",
+        difficulty: "Beginner",
+        rating: 4.9,
+        about: "Learn the art of Italian wine and cheese pairing with expert sommeliers and cheese masters.",
+        menu: "Artisanal cheeses, Italian wines, bread, olives",
+        schedule: "Every Thursday at 7:00 PM",
+        highlights: "Wine glasses, tasting guide, cheese board",
+        additionalInformation: "Vegetarian options available, wine tasting included",
+        maxStudents: 16,
+        price: 120,
+        image: "/classes/class-21.png",
+        instructorId: (await prisma.user.findFirst({ where: { email: "giovanni@cookingwithclass.com" } }))!.id
       }
     ]
 
