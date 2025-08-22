@@ -20,8 +20,18 @@ async function main() {
     // Check if data already exists
     const existingUsers = await prisma.user.count()
     if (existingUsers > 0) {
-      console.log('Database already has data, skipping seed...')
-      return
+      if (process.env.FORCE_RESET === 'true') {
+        console.log('Force reset enabled - clearing existing data...')
+        await prisma.booking.deleteMany()
+        await prisma.review.deleteMany()
+        await prisma.class.deleteMany()
+        await prisma.user.deleteMany()
+        console.log('Existing data cleared, proceeding with seed...')
+      } else {
+        console.log('Database already has data, skipping seed...')
+        console.log('Set FORCE_RESET=true to clear existing data and reseed')
+        return
+      }
     }
 
     // Instructor data with full profiles - using all available instructor images

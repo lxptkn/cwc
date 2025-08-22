@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && prisma db push && next build",
+    "build:prod": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "echo 'Build completed'",
@@ -12,7 +13,10 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "ts-node prisma/seed.ts",
-    "postbuild:seed": "npm run db:seed"
+    "db:seed:prod": "cross-env NODE_ENV=production ALLOW_PRODUCTION_SEEDING=true ts-node prisma/seed.ts",
+    "db:reset:prod": "cross-env NODE_ENV=production ALLOW_PRODUCTION_SEEDING=true FORCE_RESET=true ts-node prisma/seed.ts",
+    "postbuild:seed": "npm run db:seed",
+    "postbuild:prod": "npm run db:seed:prod"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -40,6 +44,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.0.0",
     "prisma": "^6.11.0",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
