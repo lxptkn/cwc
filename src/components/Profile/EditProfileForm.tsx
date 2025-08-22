@@ -115,15 +115,15 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
       setUploadError(null)
       
       // Validate file size before upload
-      if (file.size > 5 * 1024 * 1024) {
-        setUploadError('File size must be less than 5MB. Please choose a smaller image.')
+      if (file.size > 10 * 1024 * 1024) {
+        setUploadError('File size must be less than 10MB. Please choose a smaller image.')
         return null
       }
 
       // Validate file type
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/heic', 'image/heif']
       if (!allowedTypes.includes(file.type.toLowerCase())) {
-        setUploadError('Only JPG, PNG, GIF, and WebP image files are allowed.')
+        setUploadError('Only JPG, PNG, GIF, WebP, and HEIC image files are allowed.')
         return null
       }
 
@@ -142,10 +142,10 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
         // Provide specific error messages based on the API response
         let errorMessage = 'Failed to upload image. '
         if (data.error) {
-          if (data.error.includes('5MB')) {
-            errorMessage += 'File size must be less than 5MB.'
+          if (data.error.includes('10MB')) {
+            errorMessage += 'File size must be less than 10MB.'
           } else if (data.error.includes('image files')) {
-            errorMessage += 'Only JPG, PNG, GIF, and WebP files are allowed.'
+            errorMessage += 'Only JPG, PNG, GIF, WebP, and HEIC files are allowed.'
           } else {
             errorMessage += data.error
           }
@@ -299,13 +299,13 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
                       <p className="text-sm text-red-700 font-medium">Upload Failed</p>
                       <p className="text-xs text-red-600 mt-1">{uploadError}</p>
                       <p className="text-xs text-red-500 mt-2">
-                        Supported formats: JPG, PNG, GIF, WebP (max 5MB)
+                        Supported formats: JPG, PNG, GIF, WebP, HEIC (max 10MB)
                       </p>
                     </div>
                   )}
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Upload a profile image (JPG, PNG, GIF, WebP up to 5MB)
+                  Upload a profile image (JPG, PNG, GIF, WebP, HEIC up to 10MB)
                 </p>
               </div>
               

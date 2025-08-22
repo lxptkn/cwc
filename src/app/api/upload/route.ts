@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type - check both MIME type and file extension
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
-    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/heic', 'image/heif']
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.heif']
     
     const fileExtensionForValidation = file.name.toLowerCase().split('.').pop()
     const hasValidExtension = allowedExtensions.includes(`.${fileExtensionForValidation}`)
@@ -25,15 +25,15 @@ export async function POST(request: NextRequest) {
     
     if (!hasValidMimeType && !hasValidExtension) {
       return NextResponse.json(
-        { error: 'Only image files (JPG, PNG, GIF, WebP) are allowed' },
+        { error: 'Only image files (JPG, PNG, GIF, WebP, HEIC) are allowed' },
         { status: 400 }
       )
     }
 
-    // Validate file size (5MB limit)
-    if (file.size > 5 * 1024 * 1024) {
+    // Validate file size (10MB limit)
+    if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json(
-        { error: 'File size must be less than 5MB' },
+        { error: 'File size must be less than 10MB' },
         { status: 400 }
       )
     }
