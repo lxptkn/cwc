@@ -1,0 +1,11 @@
+# You already have these Supabase variables set up:
+# NEXT_PUBLIC_SUPABASE_URL=your_existing_supabase_url
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your_existing_anon_key
+
+# Add this ONE new variable for image uploads:
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+
+# Your existing database and NextAuth variables should already be configured
+# DATABASE_URL=your_existing_database_url
+# NEXTAUTH_SECRET=your_existing_nextauth_secret
+# NEXTAUTH_URL=your_existing_nextauth_url
