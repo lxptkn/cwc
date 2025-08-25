@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
+    // Add Supabase domain to allow external images
+    domains: ['ttunirijvhqvzduuyeqb.supabase.co'],
   },
   // Security headers
   async headers() {
